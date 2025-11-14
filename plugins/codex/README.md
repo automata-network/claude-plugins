@@ -12,6 +12,7 @@ Integration with OpenAI Codex CLI for complex code generation, modification, and
 
 - **`/codex` Command**: Execute Codex CLI tasks for code generation, debugging, and analysis
 - **Codex Runner Agent**: Specialized agent for orchestrating iterative Codex executions
+- **Codex Tmux Skill**: Run Codex interactively in a managed tmux session with automatic question handling
 - **Session Management**: Resume previous Codex sessions for continued development
 
 ## Installation
@@ -59,15 +60,26 @@ Or use the command to resume the last session:
 
 ## How It Works
 
-1. The `/codex` command launches a Task agent
+### `/codex` Command
+1. The command launches a Task agent
 2. The agent constructs and executes the appropriate Codex CLI command
 3. Results are analyzed and returned to you
 4. Session IDs are provided for manual resumption if needed
+
+### Codex Tmux Skill
+1. Claude automatically invokes this skill when you request interactive Codex execution
+2. Creates or reuses a persistent tmux session named `codex-session`
+3. Executes Codex in the background and monitors for questions
+4. Uses the AskUserQuestion tool to handle interactive prompts from Codex
+5. Keeps the session alive for continued use across multiple invocations
+
+The skill is model-invoked, meaning Claude decides when to use it based on your request. You don't need to explicitly call it - just mention interactive Codex execution or working with Codex in a tmux session.
 
 ## Requirements
 
 - OpenAI Codex CLI must be installed and configured
 - Codex must be accessible via the `codex` command in your PATH
+- tmux (required for the Codex Tmux Skill)
 
 ## Current Status
 
