@@ -1,0 +1,11 @@
+{
+  "name": "git-workflow",
+  "version": "1.0.0",
+  "description": "Streamlined Git workflow commands for branch management, commits, and pull requests",
+  "author": {
+    "name": "Deli Gong",
+    "email": "deli@ata.network"
+  },
+  "keywords": ["git", "workflow", "pull-request", "commit", "branch"],
+  "category": "productivity"
+}

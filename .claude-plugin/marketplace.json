@@ -1,0 +1,25 @@
+{
+  "name": "claude-plugins",
+  "owner": {
+    "name": "Automata Network",
+    "email": "devops@ata.network"
+  },
+  "metadata": {
+    "description": "Team plugin marketplace for Claude Code extensions",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "git-workflow",
+      "source": "./plugins/git-workflow",
+      "description": "Streamlined Git workflow commands for branch management, commits, and pull requests",
+      "version": "1.0.0",
+      "author": {
+        "name": "Automata Network",
+        "email": "devops@ata.network"
+      },
+      "keywords": ["git", "workflow", "pull-request", "commit", "branch"],
+      "category": "productivity"
+    }
+  ]
+}
