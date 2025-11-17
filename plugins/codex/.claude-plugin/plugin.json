@@ -1,10 +1,10 @@
 {
   "name": "codex",
-  "version": "0.0.1-alpha",
+  "version": "0.0.2-alpha",
   "description": "⚠️ [EXPERIMENTAL] Integration with OpenAI Codex CLI for complex code generation, modification, and debugging tasks - early development",
   "author": {
-    "name": "Automata Network",
-    "email": "devops@ata.network"
+    "name": "Deli Gong",
+    "email": "deli@ata.network"
   },
   "keywords": ["codex", "ai", "code-generation", "debugging", "experimental"],
   "category": "ai-tools"
