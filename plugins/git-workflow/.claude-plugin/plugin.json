@@ -6,6 +6,5 @@
     "name": "Deli Gong",
     "email": "deli@ata.network"
   },
-  "keywords": ["git", "workflow", "pull-request", "commit", "branch"],
-  "category": "productivity"
+  "keywords": ["git", "workflow", "pull-request", "commit", "branch"]
 }
