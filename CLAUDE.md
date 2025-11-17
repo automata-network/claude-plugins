@@ -95,14 +95,43 @@ Add entry pointing to external source:
   marketplace.json       # Main marketplace configuration file
 plugins/                 # Optional: locally hosted plugin source code
   plugin-name/          # Individual plugin directory
-    plugin.json         # Plugin manifest (optional if strict: false)
-    .claude/
-      commands/         # Command files
-    agents/            # Agent definitions
+    .claude-plugin/
+      plugin.json       # Plugin manifest (required)
+    commands/           # Slash commands (at root level)
+    agents/             # Agent definitions (at root level)
+    hooks/              # Lifecycle hooks (at root level)
+    skills/             # Skills (at root level)
 README.md              # Marketplace usage documentation
 CONTRIBUTING.md        # Plugin contribution guidelines
 CLAUDE.md             # This file
 ```
+
+### Official Plugin Directory Structure
+
+Each plugin must follow this exact structure:
+
+```
+plugin-name/
+├── .claude-plugin/
+│   └── plugin.json          # Required: Plugin metadata and configuration
+├── commands/                # Optional: Slash commands (e.g., /my-command)
+│   └── command-name.md
+├── agents/                  # Optional: Specialized agents
+│   └── agent-name.md
+├── hooks/                   # Optional: Lifecycle hooks
+│   └── hook-name.md
+├── skills/                  # Optional: Skills
+│   └── skill-name.md
+└── README.md               # Optional: Plugin documentation
+```
+
+**Important Rules:**
+1. ✓ `plugin.json` **MUST** be in `.claude-plugin/plugin.json` (not at root)
+2. ✓ All component directories (`commands/`, `agents/`, `hooks/`, `skills/`) **MUST** be at the plugin root
+3. ✗ **DO NOT** nest components inside `.claude/` or `.claude-plugin/` directories
+4. ✗ **DO NOT** put `plugin.json` at the root level
+
+This structure is required by the official Claude Code plugin specification and ensures compatibility with the plugin system.
 
 ## Important Considerations
 
