@@ -1,6 +1,6 @@
 {
   "name": "git-workflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Streamlined Git workflow commands for branch management, commits, and pull requests",
   "author": {
     "name": "Deli Gong",
