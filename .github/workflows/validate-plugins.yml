@@ -19,10 +19,21 @@ jobs:
         npm install -g @anthropic-ai/claude-code
         claude --version
 
-    - name: Validate marketplace and plugins
+    - name: Validate marketplace
       run: |
-        echo "Validating marketplace and all plugins..."
+        echo "Validating marketplace..."
         claude plugin validate .
+
+    - name: Validate individual plugins
+      run: |
+        echo "Validating each plugin individually..."
+        for plugin_dir in plugins/*/; do
+          if [ -d "$plugin_dir" ]; then
+            plugin_name=$(basename "$plugin_dir")
+            echo "Validating plugin: $plugin_name"
+            claude plugin validate "$plugin_dir"
+          fi
+        done
 
     - name: Summary
       if: success()

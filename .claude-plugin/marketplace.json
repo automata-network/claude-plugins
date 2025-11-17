@@ -13,13 +13,25 @@
       "name": "git-workflow",
       "source": "./plugins/git-workflow",
       "description": "Streamlined Git workflow commands for branch management, commits, and pull requests",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Automata Network",
         "email": "devops@ata.network"
       },
       "keywords": ["git", "workflow", "pull-request", "commit", "branch"],
       "category": "productivity"
+    },
+    {
+      "name": "codex",
+      "source": "./plugins/codex",
+      "description": "⚠️ [EXPERIMENTAL] Integration with OpenAI Codex CLI for complex code generation and debugging - early development",
+      "version": "0.0.2-alpha",
+      "author": {
+        "name": "Automata Network",
+        "email": "devops@ata.network"
+      },
+      "keywords": ["codex", "ai", "code-generation", "debugging", "experimental"],
+      "category": "ai-tools"
     }
   ]
 }
