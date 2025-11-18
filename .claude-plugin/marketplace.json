@@ -5,7 +5,7 @@
     "email": "devops@ata.network"
   },
   "metadata": {
-    "description": "Team plugin marketplace for Claude Code extensions",
+    "description": "Private internal marketplace for Automata Network's Claude Code extensions - accessible only within Automata",
     "version": "0.1.0"
   },
   "plugins": [

@@ -16,10 +16,10 @@ Integration with OpenAI Codex CLI for complex code generation, modification, and
 
 ## Installation
 
-Install from the claude-plugins marketplace:
+Install from the automata-claude-plugins marketplace:
 
 ```bash
-/plugin install codex@claude-plugins
+/plugin install codex@automata-claude-plugins
 ```
 
 ## Usage
