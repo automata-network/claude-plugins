@@ -137,7 +137,7 @@ cat .claude-plugin/marketplace.json | jq .
 
 2. **Try installing your plugin**:
    ```bash
-   /plugin install your-plugin-name@claude-plugins
+   /plugin install your-plugin-name@automata-claude-plugins
    ```
 
 3. **Verify plugin works**:

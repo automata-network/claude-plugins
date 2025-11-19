@@ -1,6 +1,8 @@
-# Claude Plugins Marketplace
+# Automata Claude Plugins Marketplace
 
-A team plugin marketplace for Claude Code extensions. This repository provides a centralized catalog of plugins for discovering, installing, and managing Claude Code extensions across your organization.
+A private internal marketplace for Automata Network's Claude Code extensions. This repository provides a centralized catalog of plugins for discovering, installing, and managing Claude Code extensions across the Automata organization.
+
+**Note:** This marketplace is accessible only within Automata Network.
 
 ## Using This Marketplace
 
@@ -9,7 +11,7 @@ A team plugin marketplace for Claude Code extensions. This repository provides a
 If this repository is hosted on GitHub:
 
 ```bash
-/plugin marketplace add owner/claude-plugins
+/plugin marketplace add automata-network/claude-plugins
 ```
 
 For other git hosting services:
@@ -30,7 +32,7 @@ Once the marketplace is added, you can install plugins:
 
 ```bash
 # Install a specific plugin
-/plugin install plugin-name@claude-plugins
+/plugin install plugin-name@automata-claude-plugins
 
 # Browse available plugins interactively
 /plugin
@@ -43,7 +45,7 @@ Once the marketplace is added, you can install plugins:
 /plugin marketplace list
 
 # Update marketplace metadata
-/plugin marketplace update claude-plugins
+/plugin marketplace update automata-claude-plugins
 ```
 
 ## Automatic Installation for Teams
@@ -53,10 +55,10 @@ Team members can automatically install this marketplace by adding it to their pr
 ```json
 {
   "extraKnownMarketplaces": {
-    "claude-plugins": {
+    "automata-claude-plugins": {
       "source": {
         "source": "github",
-        "repo": "your-org/claude-plugins"
+        "repo": "automata-network/claude-plugins"
       }
     }
   }

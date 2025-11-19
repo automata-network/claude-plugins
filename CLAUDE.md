@@ -47,13 +47,13 @@ cat .claude-plugin/marketplace.json | jq .
 /plugin marketplace add /workspaces/claude-plugins
 
 # Install a plugin from the marketplace
-/plugin install plugin-name@claude-plugins
+/plugin install plugin-name@automata-claude-plugins
 
 # List all marketplaces
 /plugin marketplace list
 
 # Update marketplace metadata
-/plugin marketplace update claude-plugins
+/plugin marketplace update automata-claude-plugins
 ```
 
 ### Adding a New Plugin
