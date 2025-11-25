@@ -1,0 +1,9 @@
+{
+  "name": "design-bible",
+  "version": "0.0.2",
+  "description": "UI design system guide with style catalogue for consistent frontend development",
+  "author": {
+    "name": "Lucas Brancher"
+  },
+  "keywords": ["design", "ui", "frontend", "style-guide", "css"]
+}
