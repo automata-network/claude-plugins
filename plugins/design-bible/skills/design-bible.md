@@ -43,10 +43,10 @@ To ensure consistency, this design system uses the **Tabler** icon set. The corr
 Use the official Tabler Icons NPM packages. This treats each icon as a reusable component, which is the standard, most maintainable approach for applications built on these platforms.
 
 **React:**
-npm install @tabler/icons-reactUse the imported component and pass `size` and `stroke` props to match the style guide rules.
+npm install @tabler/icons-react Use the imported component and pass `size` and `stroke` props to match the style guide rules.
 
 **Vue:**
-npm install @tabler/icons-vueUse the imported component and pass `:size` and `:stroke` props to match the style guide rules.
+npm install @tabler/icons-vue Use the imported component and pass `:size` and `:stroke` props to match the style guide rules.
 
 ### For Static Web (HTML/CSS)
 
