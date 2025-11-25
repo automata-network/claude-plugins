@@ -37,7 +37,7 @@
       "name": "design-bible",
       "source": "./plugins/design-bible",
       "description": "UI design system guide with style catalogue for consistent frontend development",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "author": {
         "name": "Lucas Brancher"
       },
