@@ -13,6 +13,15 @@ You're a senior UI engineer who's a specialist in complex design systems. Your m
 
 # DESIGN SYSTEM CONTEXT
 
+## 0. DESIGN PRINCIPLES
+
+This design system is built on the following core principles:
+
+*   **Clarity and Intent:** Every component and style is designed to be clear, unambiguous, and purposeful. We favor explicit rules over implicit assumptions.
+*   **Thematic Flexibility:** The system is designed to support multiple, distinct visual themes from a single set of semantic rules.
+*   **Accessibility First:** All components must meet modern accessibility standards, ensuring usability for everyone.
+*   **Token-Driven:** All visual styles—from colors to spacing—are derived from a central set of design tokens. Components are built from tokens; they do not define their own styles.
+
 ## 1. GOLDEN RULES
 
 Your behaviour:
@@ -29,20 +38,12 @@ Global design good practices:
 
 * ALWAYS use multiples of 4px for margins and paddings, and ALWAYS refer to these spacing tokens:
 
+- spacing-xxs: 2px;
 - spacing-xs: 4px;
 - spacing-sm: 8px;
-- spacing-md: 16px (Standard);
+- spacing-md: 16px; (Standard)
 - spacing-lg: 24px;
 - spacing-xlg: 32px.
-
-* ALWAYS follow these font hierarchy rules: 
-
-- page-title: H1, font-size 32px; 
-- page-subtitle: H2, font-size 24px;
-- body-text: font-size 16px;
-- small-text: font-size 14px;
-- smaller-text: font-size 12px;
-- placeholder-text: font-size defined based on context.
 
 * ALWAYS follow these button sizing rules: 
 
@@ -56,7 +57,7 @@ Global design good practices:
 
 * ALWAYS place icons to the left of the text inside of a button. This rule must be followed UNLESS the icon in question is representing an "External Link" or "External Source", in this case, and ONLY in this case, the icon should be positioned right.
 
-* ALWAYS refer to success-green, alert-yellow and error-red colors when creating elements that try to communicate a status or state.
+* ALWAYS refer to semantic color tokens (e.g., color-semantic-success, color-semantic-warning, color-semantic-danger) when creating elements that try to communicate a status or state.
 
 * ALWAYS use the specific font from your UI style catalogue selected entry when creating input fields, for both default and placeholder typography usages.
 
@@ -69,6 +70,10 @@ Global design good practices:
 * ONLY use "Chart Colors" to compose color palettes to be used for data visualization on charts and graphs. ALWAYS follow good practices of color matching and contrast, like having semi-sat colors as the default usage go-to.
 
 * ALWAYS overwrite the default table header cell's font-weight, so you can apply our own design styles instead.
+
+* ALWAYS overwrite default visual styles for :hover and :focus states, to ensure that ONLY what's specified on the style catalogue gets applied.
+
+* ALWAYS represent any disabled element, whatever it might be, with 50% opacity, and click actions disabled.
 
 ## 2. EXTERNAL RESOURCES
 
@@ -117,284 +122,502 @@ Here are the multiple styles you've specialized yourself in:
 
 #### Visual tokens
 
-- **Fonts:** Work Sans;
+- **Core Tokens:**
+  
+  - font-family-base: Work Sans;
+  - color-base-white: #FFFFFF;
+  - color-base-black: #020203;
 
-- **Colors:** 
+- **Color Tokens:** 
+  
+  - color-background-page: color-base-black;
+  - color-background-primary: color-base-white;
+  - color-background-secondary: #FFFFFF06;
+  - color-background-tertiary: #FFFFFF03;
+  - color-background-quaternary: #FFFFFF09;
+  - color-text-primary: color-base-white;
+  - color-text-secondary: #FFFFFFBF;
+  - color-text-body: #FFFFFFA8;
+  - color-text-placeholder: #FFFFFF54;
+  - color-text-inverse: color-base-black;
+  - color-border-default: #FFFFFF13; 
+  - color-border-strong: #FFFFFF20;
+  - color-border-hover: #FFFFFF26;
+  - color-border-focus: #FFFFFF80;
 
-#FFFFFF (primary-white); 
-#FFFFFF06 (fill-color);
-#FFFFFF03 (table-fill-color);
-#FFFFFF09 (table-hover-color);
-#020203 (primary-black); 
-#FFFFFF13 (border-color); 
-#FFFFFF20 (strong-border-color);
-#FFFFFF26 (hover-border-color);
-#FFFFFF80 (focus-border-color);
-#FFFFFF54 (placeholder-text-color);
-#FFFFFFA8 (body-text-color);
-#FFFFFFBF (subheader-color);
-#1EBA4D (success-green);
-#1EBA4DBF (success-inline-color);
-#1EBA4D80 (success-border-color);
-#BA9D1E (alert-yellow);
-#BA9D1EBF (alert-inline-color);
-#BA9D1E80 (alert-border-color);
-#BA1E3D (error-red);
-#BA1E3DBF (error-inline-color);
-#BA1E3D80 (error-border-color).
+- **Semantic Color Tokens:**
+  
+  - color-semantic-success: #1EBA4D;
+  - color-semantic-success-muted: #1EBA4DBF;
+  - color-semantic-success-faded: #1EBA4D80;
+  - color-semantic-warning: #BA9D1E;
+  - color-semantic-warning-muted: #BA9D1EBF;
+  - color-semantic-warning-faded: #BA9D1E80;
+  - color-semantic-danger: #BA1E3D;
+  - color-semantic-danger-muted: #BA1E3DBF;
+  - color-semantic-danger-faded: #BA1E3D80;
 
 - **Chart Colors:**
+  
+  - T1 green - saturated:
+    
+    - #56795CBF (t1-green-sat-d2);
+    - #658E6CBF (t1-green-sat-d1);
+    - #73A27BBF (t1-green-sat);
+    - #85AE8CBF (t1-green-sat-l1);
+    - #96B99CBF (t1-green-sat-l2);
+  
+  - T2 green - semi-saturated:
+    
+    - #5B7667BF (t2-green-semi-sat-d2);
+    - #6A8979BF (t2-green-semi-sat-d1);
+    - #799D8ABF (t2-green-semi-sat);
+    - #8AA999BF (t2-green-semi-sat-l1);
+    - #9BB6A7BF (t2-green-semi-sat-l2);
+  
+  - T3 green - desaturated:
+    
+    - #909E91BF (t3-green-de-sat-d2);
+    - #A8B9AABF (t3-green-de-sat-d1);
+    - #C0D3C2BF (t3-green-de-sat);
+    - #C8D9CABF (t3-green-de-sat-l1);
+    - #D0DED1BF (t3-green-de-sat-l2);
+  
+  - T1 terracota - saturated:
+    
+    - #B06755BF (t1-terra-sat-d2);
+    - #CE7963BF (t1-terra-sat-d1);
+    - #EB8A71BF (t1-terra-sat);
+    - #EE9983BF (t1-terra-sat-l1);
+    - #F0A795BF (t1-terra-sat-l2);
+  
+  - T2 terracota - semi-saturated:
+    
+    - #BB8B77BF (t2-terra-semi-sat-d2);
+    - #DBA38BBF (t2-terra-semi-sat-d1);
+    - #FABA9FBF (t2-terra-semi-sat);
+    - #FBC3ABBF (t2-terra-semi-sat-l1);
+    - #FBCBB7BF (t2-terra-semi-sat-l2);
+  
+  - T3 terracota - desaturated:
+    
+    - #B89982BF (t3-terra-de-sat-d2);
+    - #D6B298BF (t3-terra-de-sat-d1);
+    - #F5CCAEBF (t3-terra-de-sat);
+    - #F6D2B8BF (t3-terra-de-sat-l1);
+    - #F8D9C2BF (t3-terra-de-sat-l2);
 
-T1 green - saturated:
+- **Border Tokens:** 
+  
+  - border-default: 0.75px solid color-border-default;
+  - border-hover: 0.75px solid color-border-hover;
+  - border-focus: 0.75px solid color-border-focus;
+  - border-danger: 0.75px solid color-semantic-danger-faded;
+  - border-warning: 0.75px solid color-semantic-warning-faded;
+  - border-success: 0.75px solid color-semantic-success-faded;
+  - border-impact: 1px solid color-base-white;
 
-#56795CBF (t1-green-sat-d2);
-#658E6CBF (t1-green-sat-d1);
-#73A27BBF (t1-green-sat);
-#85AE8CBF (t1-green-sat-l1);
-#96B99CBF (t1-green-sat-l2);
+- **Border Radius Tokens:** 
+  
+  - radius-xs: 2px;
+  - radius-mxs: 4px;
+  - radius-sm: 6px;
+  - radius-md: 12px; (Standard)
+  - radius-lg: 16px;
+  - radius-full: 50%;
 
-T2 green - semi-saturated:
-
-#5B7667BF (t2-green-semi-sat-d2);
-#6A8979BF (t2-green-semi-sat-d1);
-#799D8ABF (t2-green-semi-sat);
-#8AA999BF (t2-green-semi-sat-l1);
-#9BB6A7BF (t2-green-semi-sat-l2);
-
-T3 green - desaturated:
-
-#909E91BF (t3-green-de-sat-d2);
-#A8B9AABF (t3-green-de-sat-d1);
-#C0D3C2BF (t3-green-de-sat);
-#C8D9CABF (t3-green-de-sat-l1);
-#D0DED1BF (t3-green-de-sat-l2);
-
-T1 terracota - saturated:
-
-#B06755BF (t1-terra-sat-d2);
-#CE7963BF (t1-terra-sat-d1);
-#EB8A71BF (t1-terra-sat);
-#EE9983BF (t1-terra-sat-l1);
-#F0A795BF (t1-terra-sat-l2);
-
-T2 terracota - semi-saturated:
-
-#BB8B77BF (t2-terra-semi-sat-d2);
-#DBA38BBF (t2-terra-semi-sat-d1);
-#FABA9FBF (t2-terra-semi-sat);
-#FBC3ABBF (t2-terra-semi-sat-l1);
-#FBCBB7BF (t2-terra-semi-sat-l2);
-
-T3 terracota - desaturated:
-
-#B89982BF (t3-terra-de-sat-d2);
-#D6B298BF (t3-terra-de-sat-d1);
-#F5CCAEBF (t3-terra-de-sat);
-#F6D2B8BF (t3-terra-de-sat-l1);
-#F8D9C2BF (t3-terra-de-sat-l2);
-
-- **Border:** 
-
-0.75px solid border-color (default-border);
-0.75px solid hover-border-color (hover-border);
-0.75px solid focus-border-color (focus-border);
-0.75px solid error-border-color (error-border);
-0.75px solid alert-border-color (alert-border);
-0.75px solid success-border-color (success-border).
-
-- **Border Radius:** 
-
-12px (standard); 
-16px (big-standard).
+- **Typography Tokens:**
+  
+  - font-size-xs: 12px;
+  - font-size-sm: 14px;
+  - font-size-md: 16px;
+  - font-size-lg: 24px;
+  - font-size-xl: 32px;
+  - font-weight-light: 300;
+  - font-weight-regular: 400;
+  - font-weight-medium: 500;
+  - font-weight-semibold: 600;
 
 #### Component rules for this style:
 
-- **Primary Button:** primary-white background, primary-black text, 400 font-weight, standard border radius, no border;
+- **Page:**
+  
+  - page-background: color-background-page;
+  - typography-page-title: font-size-xl, font-weight-semibold, color-text-primary;
+  - typography-page-subtitle: font-size-lg, font-weight-medium, color-text-primary;
+  - typography-body: font-size-md, font-weight-light, color-text-body;
+  - typography-small: font-size-sm, font-weight-light, color-text-body;
+  - typography-smaller: font-size-xs, font-weight-regular, color-text-primary;
+  - typography-placeholder: font-size-md, font-weight-light, color-text-placeholder;
 
-- **Secondary Button:** fill-color background, primary-white text, 400 font-weight, standard border radius, default-border;
+- **Primary Button:** color-background-primary background, color-text-inverse text, font-weight-regular, radius-md, no border;
 
-- **Tertiary Button:** no background, primary-white text, 400 font-weight, standard border radius, no border;
+- **Secondary Button:** color-background-secondary background, color-text-primary text, font-weight-regular, radius-md, border-default;
 
-- **Cards:** fill-color background, big-standard border radius, default-border;
+- **Tertiary Button:** no background, color-text-primary text, font-weight-regular, radius-md, no border;
+
+- **Navigation / Tabs:**
+  
+  - Tab Bar (container holding the tabs):
+
+    - tab-bar-container: no background, no borders, no padding, spacing-md between Tab Items;
+
+  - Tab Item (individual tab element):
+
+    - tab-default-state: 36px height, color-background-secondary background, font-size-sm color-text-primary text, border-default, radius-md;
+    - tab-default-hover: border-hover;
+    
+    - tab-active-state: 36px height, color-background-primary background, font-size-sm color-text-inverse text, no border, radius-md;
+    - tab-active-hover: no changes;
+
+- **Cards:** color-background-secondary background, radius-lg, border-default;
 
 - **Tables:** 
-
-table-container: standard border radius, border-color;
-cell-padding: spacing-md;
-table-header: fill-color background, body-text-color text, 300 font-weight;
-table-body: table-fill-color background, subheader-color text, 300 font-weight;
-table-body-hover: table-hover-color background, subheader-color text, 300 font-weight;
+  
+  - table-container: radius-md, color-border-default;
+  - cell-padding: spacing-md;
+  - table-header: color-background-secondary background, color-text-body, font-weight-light;
+  - table-body: color-background-tertiary background, color-text-secondary, font-weight-light;
+  - table-body-hover: color-background-quaternary background, color-text-secondary, font-weight-light;
 
 - **Input Fields:**
+  
+  - input-default: color-background-secondary background, radius-md, border-default;
+  - input-hover: color-background-secondary background, radius-md, border-hover;
+  - input-focus: color-background-secondary background, radius-md, border-focus;
+  - input-danger: color-background-secondary background, radius-md, border-danger;
+  - input-warning: color-background-secondary background, radius-md, border-warning;
+  - input-success: color-background-secondary background, radius-md, border-success;
 
-input-default: fill-color background, standard border radius, default-border;
-input-hover: fill-color background, standard border radius, hover-border;
-input-focus: fill-color background, standard border radius, focus-border;
-input-error: fill-color background, standard border radius, error-border;
-input-alert: fill-color background, standard border radius, alert-border;
-input-success: fill-color background, standard border radius, success-border.
+- **Dropdown Menus:**
+  
+  - Trigger Button:
+    
+    - dropdown-trigg-default: Follows all input-default rules. MUST have a chevron-down icon on the right side, with spacing-md from the edge;
+    - dropdown-trigg-hover: Follows all input-hover rules;
+    - dropdown-trigg-focus: Follows all input-focus rules;
+    - dropdown-trigg-open: Follows all input-focus rules, and the icon MUST change to chevron-up;
+  
+  - Dropdown Panel:
+    
+    - dropdown-panel: color-base-black background, radius-md, border-default, vertical spacing from "Trigger Button" spacing-sm;
+  
+  - Dropdown Option Item:
+    
+    - option-default: typography-small, color-text-body, font-weight-light;
+    - option-hover: color-background-secondary background, typography-small, color-text-body, font-weight-light;
+    - option-selected: color-background-quaternary background, typography-small, color-text-secondary, font-weight-regular;
+    - All states above MUST feature spacing-sm padding on all sides;
 
-- **Icons:** stroke-width of 1.5px; 
+- **Checkboxes:**
+  
+  - Un-checked state (default):
+    
+    - checkbox-default: 20px x 20px size, border-default, color-background-secondary background, radius-sm;
+    - checkbox-hover: border-hover;
+    - checkbox-focus: border-focus;
+  
+  - Checked state:
+    
+    - checkbox-checked-default: border-impact;
+    - checkbox-checked-hover & checkbox-checked-focus: no changes;
+    - The checked state, rather than showing a checkmark, shows the inner-element below centralized inside of the checkbox wraper.
+    - inner-element: 10px x 10px size, color-base-white, radius-xs;
+  
+  - Label (text next to the element):
+    
+    - checkbox-label-unchecked: typography-small, color-text-body, font-weight-light, spacing-sm horizontal spacing from the checkbox;
+    - checkbox-label-checked: typography-small, color-text-primary, font-weight-regular, spacing-sm horizontal spacing from the checkbox;
 
-If used inside of full-size-button or medium-size-button, size of 20px x 20px; 
-If used on small-size-button, size of 18px x 18px.
+- **Radio Buttons:**
+  
+  - In this catalogue entry, the Radio Buttons follow exactly the visual properties from the Checkboxes checked and uncheck states, the only difference being border-radius: radius-full;
 
-- **Page Background:** primary-black;
+- **Toggles / Switches:**
 
-- **Typography:** 
+  - Track (the background shape):
 
-page-title: primary-white, 600 font-weight;
-page-subtitle: primary-white, 500 font-weight;
-body-text: body-text-color, 300 font-weight;
-small-text: body-text-color, 300 font-weight;
-smaller-text: primary-white, 400 font-weight;
-placeholder-text: placeholder-text-color, 300 font-weight.
+    - toggle-track-off: 34px width, 20px height, color-background-secondary, border-default, radius-sm, spacing-xxs padding;
+    - toggle-track-on: 34px width, 20px height, color-background-quaternary, border-impact, radius-sm, spacing-xxs padding;
+
+  - Thumb (the sliding knob):
+
+    - toggle-thumb-off: 14px x 14px, color-border-default, radius-mxs;
+    - toggle-thumb-on: 14px x 14px, color-base-white, radius-mxs;
+
+  - Label (the text next to the toggle):
+
+    - toggle-label-off: typography-small, color-text-body, font-weight-light, spacing-sm horizontal spacing from the toggle;
+    - toggle-label-on: typography-small, color-text-primary, font-weight-regular, spacing-sm horizontal spacing from the toggle;
+
+
+- **Icons:**
+  
+  - icon-stroke-width: 1.5px; 
+  - If used inside of full-size-button or medium-size-button, icon-size: 20px x 20px; 
+  - If used on small-size-button, icon-size: 18px x 18px.
 
 - **Inline Alerts:**
-
-error-inline: smaller-text, error-inline-color;
-alert-inline: smaller-text, alert-inline-color;
-success-inline: smaller-text, success-inline-color;
+  
+  - alert-danger: typography-smaller, color-semantic-danger-muted;
+  - alert-warning: typography-smaller, color-semantic-warning-muted;
+  - alert-success: typography-smaller, color-semantic-success-muted;
 
 ### STYLE 02: 1RPC
 
 #### Visual tokens
 
-- **Fonts:** Work Sans;
+- **Core Tokens:**
+  
+  - font-family-base: Work Sans;
+  - color-base-white: #FFFFFF;
+  - color-base-orange: #E06612;
+  - color-base-dark-blue: #070E17;
 
-- **Colors:** 
+- **Color Tokens:**
+  
+  - color-background-page: color-base-dark-blue;
+  - color-background-primary: color-base-orange;
+  - color-background-secondary: #0A111A;
+  - color-background-tertiary: #0E151E;
+  - color-background-hover: #101720;
+  - color-background-midway: #17171C;
+  - color-text-primary: color-base-white;
+  - color-text-secondary: #FFFFFFBF;
+  - color-text-body: #FFFFFFA8;
+  - color-text-placeholder: #FFFFFF54;
+  - color-border-default: #FFFFFF13;
+  - color-border-hover: #FFFFFF26;
+  - color-border-focus: #FFFFFF80;
 
-#FFFFFF (primary-white); 
-#070E17 (background-dark-blue);
-#E06612 (primary-orange);
-#0A111A (fill-dark-blue);
-#0E151E (overlay-dark-blue);
-#101720 (overlay-hover);
-#FFFFFF13 (border-color);
-#FFFFFF26 (hover-border-color);
-#FFFFFF80 (focus-border-color);
-#FFFFFFA8 (body-text-color);
-#FFFFFF54 (placeholder-text-color);
-#FFFFFFBF (subheader-color);
-#2ACF94 (success-green);
-#2ACF94BF (success-inline-color);
-#2ACF9480 (success-border-color);
-#E0BA12 (alert-yellow);
-#E0BA12BF (alert-inline-color);
-#E0BA1280 (alert-border-color);
-#CF2A3D (error-red);
-#CF2A3DBF (error-inline-color);
-#CF2A3D80 (error-border-color).
+- **Semantic Color Tokens:**
+  
+  - color-semantic-success: #2ACF94;
+  - color-semantic-success-muted: #2ACF94BF;
+  - color-semantic-success-faded: #2ACF9480;
+  - color-semantic-warning: #E0BA12;
+  - color-semantic-warning-muted: #E0BA12BF;
+  - color-semantic-warning-faded: #E0BA1280;
+  - color-semantic-danger: #CF2A3D;
+  - color-semantic-danger-muted: #CF2A3DBF;
+  - color-semantic-danger-faded: #CF2A3D80;
 
 - **Chart Colors:**
+  
+  - T1 blue - saturated:
+    
+    - #1A3D97BF (t1-blue-sat-d2);
+    - #1F48B1BF (t1-blue-sat-d1);
+    - #2352CABF (t1-blue-sat);
+    - #3F68D1BF (t1-blue-sat-l1);
+    - #5A7DD7BF (t1-blue-sat-l2);
+  
+  - T2 blue - semi-saturated:
+    
+    - #2061ABBF (t2-blue-semi-sat-d2);
+    - #2671C7BF (t2-blue-semi-sat-d1);
+    - #2B81E4BF (t2-blue-semi-sat);
+    - #4691E7BF (t2-blue-semi-sat-l1);
+    - #60A1EBBF (t2-blue-semi-sat-l2);
+  
+  - T3 blue - desaturated:
+    
+    - #688CB5BF (t3-blue-de-sat-d2);
+    - #7AA4D3BF (t3-blue-de-sat-d1);
+    - #8BBBF1BF (t3-blue-de-sat);
+    - #9AC4F3BF (t3-blue-de-sat-l1);
+    - #A8CCF5BF (t3-blue-de-sat-l2);
+  
+  - T1 orange - saturated:
+   
+    - #B93413BF (t1-orange-sat-d2);
+    - #D83D16BF (t1-orange-sat-d1);
+    - #F74619BF (t1-orange-sat);
+    - #F85D36BF (t1-orange-sat-l1);
+    - #F97453BF (t1-orange-sat-l2);
+  
+  - T2 orange - semi-saturated:
+    
+    - #BF4E00BF (t2-orange-semi-sat-d2);
+    - #DF5B00BF (t2-orange-semi-sat-d1);
+    - #FF6800BF (t2-orange-semi-sat);
+    - #FF7B20BF (t2-orange-semi-sat-l1);
+    - #FF8E40BF (t2-orange-semi-sat-l2);
+  
+  - T3 orange - desaturated:
+    
+    - #B86F36BF (t3-orange-de-sat-d2);
+    - #D6813FBF (t3-orange-de-sat-d1);
+    - #F59448BF (t3-orange-de-sat);
+    - #F6A15FBF (t3-orange-de-sat-l1);
+    - #F8AF76BF (t3-orange-de-sat-l2);
 
-T1 blue - saturated:
+- **Border Tokens:** 
+  
+  - border-default: 1px solid color-border-default;
+  - border-hover: 1px solid color-border-hover;
+  - border-focus: 1px solid color-border-focus;
+  - border-lumina: 1px solid color-base-orange;
+  - border-danger: 1px solid color-semantic-danger-faded;
+  - border-warning: 1px solid color-semantic-warning-faded;
+  - border-success: 1px solid color-semantic-success-faded;
 
-#1A3D97BF (t1-blue-sat-d2);
-#1F48B1BF (t1-blue-sat-d1);
-#2352CABF (t1-blue-sat);
-#3F68D1BF (t1-blue-sat-l1);
-#5A7DD7BF (t1-blue-sat-l2);
+- **Border Radius Tokens:** 
+  
+  - radius-sm: 4px;
+  - radius-md: 8px;
+  - radius-lg: 12px;
+  - radius-full: 50%;
+  - radius-pill: 999px;
 
-T2 blue - semi-saturated:
-
-#2061ABBF (t2-blue-semi-sat-d2);
-#2671C7BF (t2-blue-semi-sat-d1);
-#2B81E4BF (t2-blue-semi-sat);
-#4691E7BF (t2-blue-semi-sat-l1);
-#60A1EBBF (t2-blue-semi-sat-l2);
-
-T3 blue - desaturated:
-
-#688CB5BF (t3-blue-de-sat-d2);
-#7AA4D3BF (t3-blue-de-sat-d1);
-#8BBBF1BF (t3-blue-de-sat);
-#9AC4F3BF (t3-blue-de-sat-l1);
-#A8CCF5BF (t3-blue-de-sat-l2);
-
-T1 orange - saturated:
-
-#B93413BF (t1-orange-sat-d2);
-#D83D16BF (t1-orange-sat-d1);
-#F74619BF (t1-orange-sat);
-#F85D36BF (t1-orange-sat-l1);
-#F97453BF (t1-orange-sat-l2);
-
-T2 orange - semi-saturated:
-
-#BF4E00BF (t2-orange-semi-sat-d2);
-#DF5B00BF (t2-orange-semi-sat-d1);
-#FF6800BF (t2-orange-semi-sat);
-#FF7B20BF (t2-orange-semi-sat-l1);
-#FF8E40BF (t2-orange-semi-sat-l2);
-
-T3 orange - desaturated:
-
-#B86F36BF (t3-orange-de-sat-d2);
-#D6813FBF (t3-orange-de-sat-d1);
-#F59448BF (t3-orange-de-sat);
-#F6A15FBF (t3-orange-de-sat-l1);
-#F8AF76BF (t3-orange-de-sat-l2);
-
-- **Border:** 
-
-1px solid border-color (default-border);
-1px solid hover-border-color (hover-border);
-1px solid focus-border-color (focus-border);
-1px solid error-border-color (error-border);
-1px solid alert-border-color (alert-border);
-1px solid success-border-color (success-border).
-
-- **Border Radius:** 
-
-8px (standard); 
-12px (big-standard).
+- **Typography Tokens:**
+  
+  - font-size-xs: 12px;
+  - font-size-sm: 14px;
+  - font-size-md: 16px;
+  - font-size-lg: 24px;
+  - font-size-xl: 32px;
+  - font-weight-light: 300;
+  - font-weight-regular: 400;
+  - font-weight-medium: 500;
+  - font-weight-semibold: 600;
 
 #### Component rules for this style:
 
-- **Primary Button:** primary-orange background, primary-white text, 400 font-weight, standard border radius, no border;
+- **Page:**
+  
+  - page-background: color-background-page;
+  - typography-page-title: font-size-xl, font-weight-semibold, color-text-primary;
+  - typography-page-subtitle: font-size-lg, font-weight-medium, color-text-primary;
+  - typography-body: font-size-md, font-weight-light, color-text-body;
+  - typography-small: font-size-sm, font-weight-light, color-text-body;
+  - typography-smaller: font-size-xs, font-weight-medium, color-text-primary;
+  - typography-placeholder: font-size-md, font-weight-light, color-text-placeholder;
 
-- **Secondary Button:** fill-dark-blue background, primary-white text, 400 font-weight, standard border radius, default-border;
+- **Primary Button:** color-background-primary background, color-text-primary text, font-weight-regular, radius-md, no border;
 
-- **Tertiary Button:** no background, primary-white text, 400 font-weight, standard border radius, no border;
+- **Secondary Button:** color-background-secondary background, color-text-primary text, font-weight-regular, radius-md, border-default;
 
-- **Cards:** fill-dark-blue background, big-standard border radius, default-border;
+- **Tertiary Button:** no background, color-text-primary text, font-weight-regular, radius-md, no border;
+
+- **Navigation / Tabs:**
+  
+  - Tab Bar (container holding the tabs):
+
+    - tab-bar-container: no background, no borders, no padding, spacing-xlg between Tab Items;
+
+  - Tab Item (individual tab element):
+
+    - tab-default-state: no background, font-size-md color-text-body text, transparent bottom border-lumina, bottom padding spacing-sm;
+    - tab-default-hover: color-text-secondary text;
+    
+    - tab-active-state: no background, font-size-md color-text-primary text, bottom border-lumina, bottom padding spacing-sm;
+    - tab-active-hover: no changes;
+
+- **Cards:** color-background-secondary background, radius-lg, border-default;
 
 - **Tables:** 
-
-table-container: standard border radius, default-border;
-cell-padding: spacing-md;
-table-header: overlay-dark-blue background, primary-white text, 400 font-weight;
-table-body: fill-dark-blue background, body-text text, 300 font-weight;
-table-body-hover: overlay-hover background, subheader-color text, 300 font-weight;
+  
+  - table-container: radius-md, border-default;
+  - cell-padding: spacing-md;
+  - table-header: color-background-tertiary background, color-text-primary text, font-weight-regular;
+  - table-body: color-background-secondary background, color-text-body, font-weight-light;
+  - table-body-hover: color-background-hover background, color-text-secondary, font-weight-light;
 
 - **Input Fields:**
+  
+  - input-default: color-background-secondary background, radius-md, border-default;
+  - input-hover: color-background-secondary background, radius-md, border-hover;
+  - input-focus: color-background-secondary background, radius-md, border-focus;
+  - input-danger: color-background-secondary background, radius-md, border-danger;
+  - input-warning: color-background-secondary background, radius-md, border-warning;
+  - input-success: color-background-secondary background, radius-md, border-success;
 
-input-default: fill-color background, standard border radius, default-border;
-input-hover: fill-color background, standard border radius, hover-border;
-input-focus: fill-color background, standard border radius, focus-border;
-input-error: fill-color background, standard border radius, error-border;
-input-alert: fill-color background, standard border radius, alert-border;
-input-success: fill-color background, standard border radius, success-border.
+- **Dropdown Menus:**
+  
+  - Trigger Button:
+    
+    - dropdown-trigg-default: Follows all input-default rules. MUST have a chevron-down icon on the right side, with spacing-md from the edge;
+    - dropdown-trigg-hover: Follows all input-hover rules;
+    - dropdown-trigg-focus: Follows all input-focus rules;
+    - dropdown-trigg-open: Follows all input-focus rules, and the icon MUST change to chevron-up;
+  
+  - Dropdown Panel:
+    
+    - dropdown-panel: color-background-page background, radius-md, border-default, vertical spacing from "Trigger Button" spacing-sm;
+  
+  - Dropdown Option Item:
+    
+    - option-default: typography-small, color-text-body, font-weight-light;
+    - option-hover: color-background-secondary background, typography-small, color-text-body, font-weight-light;
+    - option-selected: color-background-tertiary background, typography-small, color-text-secondary, font-weight-regular;
+    - All states above MUST feature spacing-sm padding on all sides;
 
-- **Icons:** stroke-width of 1.75px; 
+- **Checkboxes:**
+  
+  - Un-checked state (default):
+    
+    - checkbox-default: 16px x 16px size, border-default, color-background-secondary background, radius-sm;
+    - checkbox-hover: border-hover;
+    - checkbox-focus: border-focus;
+  
+  - Checked state:
+    
+    - checkbox-checked-default: border-default, color-background-primary background with checkbox-icon centralized;
+    - checkbox-checked-hover & checkbox-checked-focus: no changes;
+  
+  - Checkmark Icon:
+    
+    - checkbox-icon: 10px x 10px size, stroke-width of 1.25px, color-text-primary;
+  
+  - Label (text next to the element):
+    
+    - checkbox-label-unchecked: typography-small, color-text-body, font-weight-light, spacing-sm horizontal spacing from the checkbox;
+    - checkbox-label-checked: typography-small, color-text-primary, font-weight-regular, spacing-sm horizontal spacing from the checkbox;
 
-If used inside of full-size-button or medium-size-button, size of 20px x 20px; 
-If used on small-size-button, size of 18px x 18px.
+- **Radio Buttons:**
+  
+  - Un-selected state (default):
+    
+    - radio-default: 16px x 16px size, border-default, color-background-secondary background, radius-full;
+    - radio-hover: border-hover;
+    - radio-focus: border-focus;
+  
+  - Selected state:
+    
+    - radio-selected-default: border-default;
+    - radio-selected-hover & radio-selected-focus: no changes;
+    - The checked state, shows the inner-element below centralized inside of the radio button wraper.
+    - inner-element: 8px x 8px size, color-base-white, radius-full;
+  
+  - Label (text next to the element):
+    
+    - Follow exactly the design properties from the Checkboxes labels;
 
-- **Page Background:** background-dark-blue;
+- **Toggles / Switches:**
 
-- **Typography:** 
+  - Track (the background shape):
 
-page-title: primary-white, 600 font-weight;
-page-subtitle: primary-white, 500 font-weight;
-body-text: body-text-color, 300 font-weight;
-small-text: body-text-color, 300 font-weight;
-smaller-text: primary-white, 500 font-weight;
-placeholder-text: placeholder-text-color, 300 font-weight.
+    - toggle-track-off: 48px width, 28px height, color-background-secondary, border-default, radius-pill, spacing-xs padding;
+    - toggle-track-on: 48px width, 28px height, color-background-midway, border-lumina, radius-pill, spacing-xs padding;
+
+  - Thumb (the sliding knob):
+
+    - toggle-thumb: 20px x 20px, color-base-white, radius-full;
+
+  - Label (the text next to the toggle):
+
+    - toggle-label-off: typography-small, color-text-body, font-weight-light, spacing-sm horizontal spacing from the toggle;
+    - toggle-label-on: typography-small, color-text-primary, font-weight-regular, spacing-sm horizontal spacing from the toggle;
+
+- **Icons:**
+  
+  - icon-stroke-width: 1.75px; 
+  - If used inside of full-size-button or medium-size-button, icon-size: 20px x 20px; 
+  - If used on small-size-button, icon-size: 18px x 18px.
 
 - **Inline Alerts:**
-
-error-inline: smaller-text, error-inline-color;
-alert-inline: smaller-text, alert-inline-color;
-success-inline: smaller-text, success-inline-color;
+  
+  - alert-danger: typography-smaller, color-semantic-danger-muted;
+  - alert-warning: typography-smaller, color-semantic-warning-muted;
+  - alert-success: typography-smaller, color-semantic-success-muted;
