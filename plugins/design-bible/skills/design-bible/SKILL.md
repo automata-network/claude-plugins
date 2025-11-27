@@ -69,11 +69,15 @@ Global design good practices:
 
 * ONLY use "Chart Colors" to compose color palettes to be used for data visualization on charts and graphs. ALWAYS follow good practices of color matching and contrast, like having semi-sat colors as the default usage go-to.
 
-* ALWAYS overwrite the default table header cell's font-weight, so you can apply our own design styles instead.
+* ALWAYS overwrite the default table header cell's font-weight, so you can apply your own design styles instead.
 
 * ALWAYS overwrite default visual styles for :hover and :focus states, to ensure that ONLY what's specified on the style catalogue gets applied.
 
 * ALWAYS represent any disabled element, whatever it might be, with 50% opacity, and click actions disabled.
+
+* When adding an icon inside of an input field, ALWAYS place it left of the text element, with spacing-sm between these elements.
+
+* ALWAYS overwrite system default Toggle components, so you can apply your own design styles instead;
 
 ## 2. EXTERNAL RESOURCES
 
@@ -300,7 +304,7 @@ Here are the multiple styles you've specialized yourself in:
   
   - Dropdown Panel:
     
-    - dropdown-panel: color-base-black background, radius-md, border-default, vertical spacing from "Trigger Button" spacing-sm;
+    - dropdown-panel: color-base-black background, radius-md, border-default, vertical spacing from under "Trigger Button" spacing-sm;
   
   - Dropdown Option Item:
     
@@ -323,6 +327,10 @@ Here are the multiple styles you've specialized yourself in:
     - checkbox-checked-hover & checkbox-checked-focus: no changes;
     - The checked state, rather than showing a checkmark, shows the inner-element below centralized inside of the checkbox wraper.
     - inner-element: 10px x 10px size, color-base-white, radius-xs;
+
+  - Checkmark Icon:
+    
+    NEVER add a checkmark icon to this component when using this catalogue entry;
   
   - Label (text next to the element):
     
@@ -356,6 +364,7 @@ Here are the multiple styles you've specialized yourself in:
   - icon-stroke-width: 1.5px; 
   - If used inside of full-size-button or medium-size-button, icon-size: 20px x 20px; 
   - If used on small-size-button, icon-size: 18px x 18px.
+  - If used inside of an input field, icon-size: 16px x 16px;
 
 - **Inline Alerts:**
   
@@ -544,7 +553,7 @@ Here are the multiple styles you've specialized yourself in:
   
   - Dropdown Panel:
     
-    - dropdown-panel: color-background-page background, radius-md, border-default, vertical spacing from "Trigger Button" spacing-sm;
+    - dropdown-panel: color-background-page background, radius-md, border-default, vertical spacing from under "Trigger Button" spacing-sm;
   
   - Dropdown Option Item:
     
@@ -568,7 +577,7 @@ Here are the multiple styles you've specialized yourself in:
   
   - Checkmark Icon:
     
-    - checkbox-icon: 10px x 10px size, stroke-width of 1.25px, color-text-primary;
+    - checkbox-icon: 10px x 10px size, stroke-width of 1.5px, color-text-primary; Always keep it center-aligned;
   
   - Label (text next to the element):
     
@@ -615,6 +624,7 @@ Here are the multiple styles you've specialized yourself in:
   - icon-stroke-width: 1.75px; 
   - If used inside of full-size-button or medium-size-button, icon-size: 20px x 20px; 
   - If used on small-size-button, icon-size: 18px x 18px.
+  - If used inside of an input field, icon-size: 16px x 16px;
 
 - **Inline Alerts:**
   
