@@ -43,6 +43,18 @@
       },
       "keywords": ["design", "ui", "frontend", "style-guide", "css"],
       "category": "design"
+    },
+    {
+      "name": "frontend-testing",
+      "source": "./plugins/frontend-testing",
+      "description": "Use Playwright to perform frontend testing tasks such as UI testing, end-to-end testing, and cross-browser testing.",
+      "version": "0.0.1",
+      "author": {
+        "name": "Yi Liao",
+        "email": "liaoyi@ata.network"
+      },
+      "keywords": ["testing", "frontend", "playwright", "ui-testing", "e2e-testing"],
+      "category": "testing"
     }
   ]
 }
