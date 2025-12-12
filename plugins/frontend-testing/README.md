@@ -8,10 +8,22 @@ Follow the readme under root folder of the repo to install marketplace, then ins
 ```
 
 # Usage
-Use the slash command below to test the website
+
+## Automated Testing
+Use the slash command below to test the website with Playwright:
 ```bash
 /frontend-testing:frontend-testing-command <domain>
 ```
+
+## Pre-Deployment Checklist
+The `frontend-deployment-checklist` skill is automatically available when working on frontend code. It provides guidance for verifying:
+- Analytics & tracking setup
+- Code quality standards
+- UX (loading states, error handling)
+- SEO (meta tags, Open Graph, favicon)
+- Function & layout (forms, dark mode, responsive design)
+
+Invoke it by asking Claude to "check deployment readiness" or "run pre-deployment verification".
 
 # Permissions
 You can add the following section to your ".claude/settings.json" file to provide permission to playwright, so that you don't need to approve all actions everytime when claude code want to execute a new type of operation using playwright.
