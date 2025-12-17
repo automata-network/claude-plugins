@@ -12,31 +12,41 @@ You must execute the following operations strictly in order. Do not skip any ste
     * *Criteria*: If any console errors are found, the test status must be marked as "WARNING" (unless the page fails to load entirely, then "FAIL").
 
 ### Phase B: Standard Testing
+
+**Reference**: See [checklist.md](../checklist.md) for comprehensive quality criteria covering:
+- UX & Error Handling
+- SEO
+- Function & Layout
+- Accessibility Considerations
+- Performance
+
+Focus on the following automated checks using Playwright:
+
 #### A. Layout & Visual Breakdowns (Visual)
 1.  **Unexpected Horizontal Scroll**: Page content overflowing width.
 2.  **Element Overlap**: Text colliding with images or elements stacking incorrectly.
 3.  **Floating Footer**: Footer not sticking to the bottom on short pages.
 4.  **Broken Images**: Images showing cracked icons (naturalWidth === 0).
 5.  **Text Overflow**: Long text strings extending beyond containers.
-6.  **Poor Contrast**: Text color too similar to background.
+6.  **Poor Contrast**: Text color too similar to background (check against checklist accessibility standards).
 
 #### B. Interaction Failures (Functional)
 1.  **Unclickable Elements**: Buttons/Links obscured by overlays.
 2.  **Unresponsive Links**: Clicking triggers no action.
 3. **Dead Links (404)**: Links navigating to non-existent pages.
-4. **Silent Form Submission**: No feedback after clicking submit.
+4. **Silent Form Submission**: No feedback after clicking submit (verify against checklist UX requirements).
 5. **Flickering Menus**: Hover menus closing prematurely.
 
 #### C. Content & Data Errors (Quality)
 1. **Placeholder Artifacts**: "Lorem Ipsum", "TODO", or template text visible.
 2. **Encoding Errors**: Raw HTML entities (e.g., `&nbsp;`) visible.
-3. **Infinite Loading**: Spinners that never stop.
-4. **Missing Favicon**: Default browser icon displayed.
+3. **Infinite Loading**: Spinners that never stop (verify loading UI per checklist).
+4. **Missing Favicon**: Default browser icon displayed (SEO checklist item).
 
 #### D. Mobile Usability (Responsive)
-1. **Tiny Touch Targets**: Buttons too small/close for fingers.
+1. **Tiny Touch Targets**: Buttons too small/close for fingers (minimum 44×44px per checklist).
 2. **Input Obscured by Keyboard**: Typing area hidden by virtual keyboard.
-3. **Unreadable Font Size**: Text requiring zoom to read.
+3. **Unreadable Font Size**: Text requiring zoom to read (check 200% zoom requirement).
 
 ### Phase C: Sub-page Traversal
 1.  **Navigation Discovery**:
