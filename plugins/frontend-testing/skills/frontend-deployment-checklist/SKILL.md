@@ -1,276 +1,622 @@
 ---
-name: frontend-deployment-checklist
-description: |
-  Pre-deployment checklist for frontend projects. Use this skill when:
-  - Preparing to deploy or merge frontend code
-  - Reviewing pull requests for frontend changes
-  - The user asks for deployment readiness verification
-  - Conducting pre-production quality checks
+name: web-app-testing
+description: Comprehensive web app testing with Playwright ensuring 100% UI coverage. Automatically crawls entire web app, analyzed the implementation code and captured ALL interactive elements, interacts with EVERY element to reveal hidden UI states, runs comprehensive quality checklist (Deployment, Code Quality, UX, SEO, Function & Layout), and provides concise UI/UX designer review focusing on critical issues only. Generates reports with checklist results and actionable fixes. Uses Claude for post-test design review.
+allowed-tools: Write, Read, Run
 ---
 
-# PERSONA
-You are a meticulous frontend deployment specialist who ensures all critical items are verified before code reaches production. You systematically guide developers through quality gates, catching issues that could impact user experience, SEO, analytics, or code maintainability.
+# Playwright Web Testing
 
-# OBJECTIVE
-When invoked, guide the user through a comprehensive pre-deployment verification checklist covering Analytics, Code Quality, UX, SEO, and Function & Layout aspects. Provide specific guidance on how to verify each item and document the results.
+Advanced automated web application testing with Playwright. Automatically discover all pages and interactive elements in your web app, analyzed the implementation code to ensure no UI screens are missed. Capture screenshots with visual regression testing, simulate devices(mobile on iphone 15), perform interactive actions, and generate comprehensive reports with network analysis and code coverage.
 
-# VERIFICATION WORKFLOW
+## 🎯 Interactive Element Types
 
-When a user requests deployment checklist verification, follow this process:
+This skill now discovers and tests ALL these interactive element types:
 
-1. **Context Gathering**: Ask which checklist categories are relevant for this deployment:
-   - Analytics & Tracking
-   - Code Quality
-   - UX (User Experience)
-   - SEO (Search Engine Optimization)
-   - Function & Layout
+1. **Buttons** - `<button>`, `[role="button"]`, `[onclick]`, input buttons, submit buttons, class-based buttons
+2. **Links** - `<a href>` elements (excluding anchors and javascript:)
+3. **Checkboxes** - `input[type="checkbox"]` with check/uncheck actions and state tracking
+4. **Radio Buttons** - `input[type="radio"]` with automatic selection testing
+5. **Select Dropdowns** - `<select>` with option testing (tests up to 3 options per dropdown)
+6. **Text Inputs** - text, email, password, search, tel, url, and generic inputs, plus textareas
+7. **Tabs** - `[role="tab"]`, `.tab`, `[class*="tab"]` elements
+8. **Accordions** - `<details><summary>`, `[aria-expanded]`, `.accordion` elements
+9. **Toggles/Switches** - `[role="switch"]`, `.toggle`, `.switch` elements
+10. **Modal Triggers** - `[data-toggle="modal"]`, `[aria-haspopup="dialog"]` elements
+11. **Menu Items** - `[role="menuitem"]`, `.menu-item` elements
 
-2. **Systematic Verification**: Guide through each relevant category, checking items one by one
+Each element type is:
+- ✅ Automatically discovered on every page
+- ✅ Tested with appropriate interactions (click, check, select, fill)
+- ✅ Captured with before/after screenshots (when enabled)
+- ✅ Tracked for UI coverage reporting
+- ✅ Matched against source code for gap detection
 
-3. **Report Generation**: Provide a summary of verification status with any issues found
 
-# CHECKLIST CATEGORIES
+## Quick Start
 
-## 1. Analytics & Tracking
+Ask me to comprehensively test your web app:
+- "Crawl my web app, test everything, run checklist, and provide design feedback"
+- "analyzed the implementation code and captured every animation frame or UI"
+- "Interact with aLL 11+ element types (buttons, links, checkboxes, radios, dropdowns,
+   inputs, tabs, accordions, toggles, modals, menus), take screenshots of each UI state, and provide detailed UX/design review"
+- "Test with picky designer review - no UI detail left unexamined"
+- "Run comprehensive quality checks: deployment, code quality, UX, SEO, and functionality"
 
-### Critical Items:
-- **Vercel/Google Analytics Enabled**
-  - *How to verify*: Check that analytics initialization code exists in the app entry point
-  - *Where to look*: Look for GA4, Google Tag Manager, or Vercel Analytics scripts in `_app.tsx`, `layout.tsx`, or `index.html`
-  - *Red flags*: Missing tracking ID, analytics only in development mode, incorrect domain configuration
 
-- **Feature Flags Configured**
-  - *How to verify*: Confirm feature flags match intended deployment environment (staging/prod)
-  - *Where to look*: Environment-specific config files, `.env.production`, feature flag management dashboard
-  - *Red flags*: Test flags enabled in production, production flags in staging
+# Frontend UI Review Checklist
 
-- **Key Events Tracking Correctly**
-  - *How to verify*: Test critical user actions (signup, purchase, form submissions) and confirm events fire
-  - *Where to look*: Browser DevTools → Network tab for analytics requests, or analytics debug mode
-  - *Red flags*: Events not firing, duplicate events, wrong event names or parameters
+A comprehensive checklist for reviewing frontend implementations to ensure high-quality user experience, proper SEO, and robust functionality.
 
-- **Environment Variables Configured**
-  - *How to verify*: All required env vars exist for target environment with correct values
-  - *Where to look*: `.env.production`, deployment platform settings (Vercel, Netlify, etc.)
-  - *Red flags*: Hardcoded API keys, missing required vars, dev URLs in production
+---
 
-- **No Sensitive Data Exposed**
-  - *How to verify*: Inspect browser console, network requests, and page source
-  - *Where to look*: Console logs, error messages, API responses, HTML comments
-  - *Red flags*: API keys in source, internal URLs, stack traces, test data, PII in logs
+## UX & Error Handling
 
-## 2. Code Quality
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| API call has loading UI | ☐ | Loading indicators (spinners, skeletons, progress bars) displayed during async operations |
+| API error has user-friendly message | ☐ | Error messages are clear, actionable, and non-technical for end users |
+| All key events are tracking correctly | ☐ | Analytics events fire as expected for user interactions |
+| No hardcoded constants that should be config/env variables | ☐ | API keys, endpoints, feature flags moved to environment variables |
+| Meaningful naming for files, components, and variables | ☐ | Names are descriptive, follow conventions, and indicate purpose |
+| Components small and reusable where possible | ☐ | Components follow single responsibility principle and are DRY |
+| Network errors/Abort requests handled gracefully | ☐ | Timeout, abort, and network failure scenarios provide feedback |
 
-### Critical Items:
-- **Code Quality Checks Pass**
-  - *How to verify*: Run Prettier and ESLint with no errors
-  - *Commands*: `npm run lint`, `npm run format:check`
-  - *Red flags*: Skipped linting, suppressed errors with comments, inconsistent formatting
+---
 
-- **Unit Tests for Critical Logic**
-  - *How to verify*: Critical business logic has test coverage
-  - *Where to look*: Test files adjacent to components/utilities, coverage reports
-  - *Red flags*: No tests for payment flows, authentication, data transformations
+## SEO
 
-- **No Hardcoded Constants**
-  - *How to verify*: API keys, endpoints, and config values are in env vars or config files
-  - *Where to look*: Search codebase for `https://`, API patterns, hardcoded tokens
-  - *Red flags*: URLs like `https://api.example.com`, keys like `pk_test_`, hardcoded domains
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| `<title>` tag set | ☐ | Unique, descriptive title for each page (50-60 characters) |
+| Meta description | ☐ | Compelling description for each page (150-160 characters) |
+| Open Graph tags (title, description, image) | ☐ | Social media preview tags configured correctly |
+| Favicon included | ☐ | Favicon files present in all required sizes |
+| Correct canonical link (if needed) | ☐ | Canonical URLs set to prevent duplicate content issues |
+| Semantic HTML structure | ☐ | Proper heading hierarchy (h1-h6), semantic tags used appropriately |
 
-- **Meaningful Naming**
-  - *How to verify*: Files, components, variables use descriptive, consistent names
-  - *What to check*: No `temp.tsx`, `utils2.ts`, `Component1`, single-letter vars (except loops)
-  - *Red flags*: Abbreviated names only you understand, inconsistent naming patterns
+---
 
-- **Components Small & Reusable**
-  - *How to verify*: Components are focused, single-responsibility, under ~200 lines
-  - *What to check*: Large components can be split, repeated UI is extracted
-  - *Red flags*: 500+ line components, copy-pasted UI patterns, mixed concerns
+## Function & Layout
 
-- **Network Errors Handled**
-  - *How to verify*: API calls have try-catch or error handling, loading states exist
-  - *Where to look*: Fetch/axios calls, React Query/SWR configurations
-  - *Red flags*: Unhandled promise rejections, no error boundaries, silent failures
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| All buttons, links, forms, modals, popovers, dropdowns behave correctly | ☐ | Interactive elements function as expected across scenarios |
+| Form validation triggered correctly | ☐ | Client-side validation fires appropriately with clear error messages |
+| Basic keyboard & touch area interactions work | ☐ | Tab navigation, Enter/Space keys, minimum 44×44px touch targets |
+| No unintended overflow horizontally or vertically | ☐ | Content contained properly, no unexpected scrollbars |
+| Consistent and proper spacing, element size, element radius, typography, and colors | ☐ | Design system tokens applied consistently |
+| Dark mode supported (if applicable) | ☐ | Theme switching works without visual artifacts |
+| Branding included | ☐ | Logo, colors, and brand elements present where appropriate |
+| Data/Calculation correct | ☐ | All computed values, aggregations, and transformations are accurate |
+| Sticky headers/footers behave properly | ☐ | Fixed/sticky elements don't overlap content or cause layout shift |
+| Zoom behavior correct | ☐ | Page remains functional at 200% zoom, text reflows properly |
+| Tooltips content display proper location and concise formal content | ☐ | Tooltips positioned correctly, content is brief and professional |
+| Interactive component has the right default state and corner cases work fine | ☐ | Initial states correct, edge cases (empty, error, loading) handled |
+| Concise title/description | ☐ | Headings and descriptions are clear and to the point |
+| Title and content matched | ☐ | Page/section titles accurately reflect the content |
+| Element vertical/horizontal alignment correct | ☐ | Visual alignment follows design specs (center, left, right, baseline) |
+| Hide browser default scroll bar (if applicable) | ☐ | Custom scrollbar styling applied where needed |
 
-## 3. UX (User Experience)
+---
 
-### Critical Items:
-- **API Call Loading UI**
-  - *How to verify*: All async operations show loading indicators (spinners, skeletons, disabled buttons)
-  - *Where to test*: Throttle network in DevTools, verify every data-fetching interaction
-  - *Red flags*: Frozen UI during loads, clickable elements during submission, no feedback
+## Accessibility Considerations
 
-- **API Error User-Friendly Messages**
-  - *How to verify*: Errors display helpful messages, not raw error objects or tech jargon
-  - *Where to test*: Simulate failures (network offline, 500 errors, validation failures)
-  - *Red flags*: "Error: undefined", raw stack traces, error codes without explanation
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| Sufficient color contrast (WCAG AA minimum) | ☐ | Text and interactive elements meet 4.5:1 ratio |
+| Focus indicators visible | ☐ | Clear focus states on all interactive elements |
+| Alt text for images | ☐ | Descriptive alternative text provided for meaningful images |
+| ARIA labels where needed | ☐ | Screen reader labels for icons, dynamic content |
+| Form labels properly associated | ☐ | All inputs have visible or aria-label associations |
 
-- **Form Validation**
-  - *How to verify*: Forms validate inputs, show clear error messages, prevent invalid submission
-  - *Where to test*: Try submitting empty/invalid data, check inline validation
-  - *Red flags*: Submit succeeds with invalid data, unclear error messages, no field highlighting
+---
 
-- **Graceful Aborts**
-  - *How to verify*: Navigating away during pending requests doesn't cause errors
-  - *Where to test*: Start request, navigate away, check console for abort errors
-  - *Red flags*: Memory leaks from unaborted requests, "Can't perform state update" warnings
+## Performance
 
-## 4. SEO (Search Engine Optimization)
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| Images optimized and lazy-loaded | ☐ | Appropriate formats, compressed, loading="lazy" where applicable |
+| Bundle size reasonable | ☐ | No unnecessary dependencies, code-splitting implemented |
+| No unnecessary re-renders | ☐ | React/framework rendering optimized |
+| Debounce/throttle on high-frequency events | ☐ | Scroll, resize, input handlers optimized |
 
-### Critical Items:
-- **`<title>` Tag Set**
-  - *How to verify*: Each page has unique, descriptive title (50-60 chars optimal)
-  - *Where to look*: Browser tab, view page source `<head>` section
-  - *Red flags*: Generic "React App", missing title, duplicate titles across pages
+---
 
-- **Meta Description**
-  - *How to verify*: Pages have compelling meta descriptions (150-160 chars)
-  - *Where to look*: View source → `<meta name="description">`
-  - *Red flags*: Missing, generic, too long/short, same as title
+## Browser & Device Testing
 
-- **Open Graph Tags**
-  - *How to verify*: `og:title`, `og:description`, `og:image` exist for social sharing
-  - *Where to look*: View source → `<meta property="og:*">`
-  - *Testing*: Use Facebook Debugger, Twitter Card Validator
-  - *Red flags*: Missing image, broken image URLs, wrong dimensions
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| Chrome/Edge (latest) | ☐ | Full functionality verified |
+| Firefox (latest) | ☐ | Full functionality verified |
+| Safari (latest) | ☐ | Full functionality verified |
+| Mobile Safari (iOS) | ☐ | Touch interactions and layout correct |
+| Chrome Mobile (Android) | ☐ | Touch interactions and layout correct |
+| Responsive breakpoints (mobile, tablet, desktop) | ☐ | Layout adapts properly at all viewport sizes |
 
-- **Favicon Included**
-  - *How to verify*: Site displays custom icon in browser tab and bookmarks
-  - *Where to look*: `<link rel="icon">` in HTML, `/public/favicon.ico`
-  - *Red flags*: Default browser icon, 404 on favicon request
+---
 
-- **Canonical Link**
-  - *How to verify*: If needed for duplicate content, canonical tag points to primary URL
-  - *Where to look*: `<link rel="canonical">`
-  - *When needed*: Multiple URLs for same content, pagination, query parameters
+## 🎨 Claude Design Review (Post-Test)
 
-## 5. Function & Layout
+### Overview
+Leverage Claude for comprehensive pixel-perfect design analysis using post-test screenshots. This automated review process identifies critical design issues and ensures visual consistency across your application.
 
-### Critical Items:
-- **All Interactive Elements Work**
-  - *What to test*: Buttons, links, forms, modals, popovers, dropdowns
-  - *How to verify*: Click through every interactive element systematically
-  - *Red flags*: Dead links, unresponsive buttons, dropdowns stuck open, modal won't close
+### Review Process
 
-- **Form Validation Triggers**
-  - *How to verify*: Required fields are enforced, format validation works (email, phone)
-  - *Where to test*: Submit forms with invalid data, check real-time validation
-  - *Red flags*: Can submit empty required fields, invalid email accepted
+1. **Screenshot Capture** - Automated screenshot collection during testing
+2. **JSON Export** - Screenshots saved to `screenshots_for_review.json`
+3. **Claude Analysis** - AI-powered design review with prioritized feedback
+4. **Review Report** - Concise feedback file with actionable fixes
 
-- **Keyboard & Touch Interactions**
-  - *How to verify*: Tab navigation works, Enter submits forms, touch targets are adequate (44×44px min)
-  - *Where to test*: Navigate without mouse, test on mobile device or emulator
-  - *Red flags*: Can't tab to buttons, focus outline missing, tiny tap targets
+### What Claude Reviews
 
-- **No Unintended Overflow**
-  - *How to verify*: No horizontal scrollbars (unless intended), content stays within bounds
-  - *Where to test*: Resize browser, test long text strings, check all breakpoints
-  - *Red flags*: Horizontal scroll on mobile, text extending beyond containers
+#### **Pixel-Perfect Analysis**
+Claude examines every UI detail captured in screenshots:
+- **Typography**: Font family, size, weight, line-height, letter-spacing
+- **Colors**: Text colors, backgrounds, borders, gradients, contrast ratios
+- **Spacing**: Margins, padding, alignment, grid consistency
+- **Visual Details**: Shadows, borders, border-radius, hover states, transitions
+- **Layout**: Alignment, hierarchy, balance, responsive behavior
+- **Accessibility**: Contrast ratios, touch target sizes, readability
 
-- **Consistent Spacing & Styling**
-  - *How to verify*: Padding, margins, border radius, typography follow design system
-  - *Where to check*: Compare against design specs or existing pages
-  - *Red flags*: Random spacing values, inconsistent button styles, mixed fonts
+#### **Design Element Inspection**
 
-- **Dark Mode Supported**
-  - *How to verify*: If app supports dark mode, all elements are readable
-  - *Where to test*: Toggle system dark mode, check for missing styles
-  - *Red flags*: White text on white background, missing dark mode styles
+**Typography**
+- Font family consistency across components
+- Font size hierarchy (headings, body, captions)
+- Font weight usage (regular, medium, bold)
+- Line-height for readability
+- Letter-spacing and text alignment
 
-- **Branding Included**
-  - *How to verify*: Logo, brand colors, font families match brand guidelines
-  - *Where to check*: Header, footer, error pages, loading screens
-  - *Red flags*: Default styles, placeholder logos, inconsistent brand colors
+**Colors**
+- Text color contrast against backgrounds
+- Brand color consistency
+- Interactive state colors (hover, active, disabled)
+- Border and divider colors
+- Shadow and overlay colors
 
-- **Data/Calculations Correct**
-  - *How to verify*: Prices, totals, counts, dates display accurately
-  - *Where to test*: Edge cases (large numbers, negatives, decimals), timezone handling
-  - *Red flags*: Wrong currency formatting, incorrect sums, timezone bugs
+**Spacing**
+- Consistent margin and padding scale
+- Alignment (left, center, right, justified)
+- Grid system adherence
+- Whitespace balance
+- Element proximity and grouping
 
-- **Sticky Headers/Footers Behave**
-  - *How to verify*: Sticky elements stay visible when scrolling, don't overlap content
-  - *Where to test*: Scroll through pages, check at different viewport sizes
-  - *Red flags*: Header scrolls away when sticky, overlaps important content
+**Visual Details**
+- Box shadows (elevation, blur, spread)
+- Border styles and widths
+- Border-radius consistency
+- Transition timing and easing
+- Hover and focus states
 
-- **Zoom Behavior Correct**
-  - *How to verify*: Page remains usable at 200% zoom (accessibility requirement)
-  - *Where to test*: Browser zoom (Cmd/Ctrl +), check mobile pinch zoom
-  - *Red flags*: Broken layout at zoom, horizontal scroll appears, text cut off
+**Accessibility**
+- WCAG contrast ratios (AA/AAA compliance)
+- Touch target minimum sizes (44×44px)
+- Text readability at various sizes
+- Color-blind friendly palettes
 
-- **Tooltips Display Properly**
-  - *How to verify*: Tooltips appear in correct position, content is concise and formal
-  - *Where to test*: Hover/tap all elements with tooltips
-  - *Red flags*: Tooltips cut off by viewport, verbose content, positioned wrong
+### Priority-Focused Feedback
 
-- **Interactive Components Corner Cases**
-  - *How to verify*: Components handle edge cases (empty states, loading, errors, disabled)
-  - *Where to test*: Test default state, loading state, error state, success state
-  - *Red flags*: Breaks with empty data, no loading state, errors unhandled
+Claude provides **CRITICAL ISSUES ONLY** - focusing on blocking design/UX problems:
 
-- **Concise & Matched Content**
-  - *How to verify*: Titles and descriptions are clear, concise, match each other
-  - *Where to check*: Page titles vs content, button labels vs actions
-  - *Red flags*: Misleading titles, verbose descriptions, title/content mismatch
+#### 🔴 **Critical (Blocking)**
+Issues that severely impact usability or accessibility:
+- WCAG contrast violations (below 4.5:1 for normal text, 3:1 for large text)
+- Broken layouts (overflow, overlapping elements, missing content)
+- Interactive elements too small (<44×44px touch targets)
+- Illegible text (too small, poor contrast, bad font rendering)
+- Major brand inconsistencies
 
-- **Element Alignment**
-  - *How to verify*: Elements are visually aligned vertically and horizontally
-  - *Where to check*: Grid layouts, form fields, card grids
-  - *Red flags*: Slightly misaligned elements, inconsistent grid gaps
+#### ⚠️ **High Priority**
+Issues that significantly affect user experience:
+- Poor contrast (technically passing but borderline)
+- Inconsistent spacing across similar components
+- Typography inconsistencies (mixed fonts, sizes, weights)
+- Misaligned elements
+- Inconsistent border-radius or shadows
+- UX confusion (unclear affordances, misleading interactions)
 
-- **Browser Scrollbar Hidden**
-  - *How to verify*: Custom scroll styling hides default scrollbar where intended
-  - *Where to check*: CSS for scrollbar styling, specific scrollable containers
-  - *Red flags*: Inconsistent scrollbar appearance, broken custom scrollbars
+#### 💡 **Medium Priority** (Optional)
+Nice-to-have improvements:
+- Minor spacing tweaks for visual polish
+- Subtle color adjustments
+- Enhanced micro-interactions
 
-# OUTPUT FORMAT
+### Feedback Format
 
-After verification, provide a structured report:
+Claude provides **specific, actionable fixes** rather than vague observations:
 
-```markdown
-# Frontend Deployment Checklist Report
+**❌ Avoid**: "Button text is too small"
+**✅ Good**: "Button font-size: 16px (currently 12px) - fails touch target minimum"
 
-**Date:** [Current Date]
-**Reviewer:** [Your Name/Claude]
-**Project/PR:** [Project Name or PR Number]
+**❌ Avoid**: "Colors need work"
+**✅ Good**: "Insufficient color contrast: #666 on #999 (2.8:1) - needs 4.5:1 minimum. Suggest #444 on #999 (5.2:1)"
 
-## Summary
-- Total Items Checked: X
-- Passed: ✅ X
-- Issues Found: ⚠️ X
-- Not Applicable: N/A X
+**❌ Avoid**: "Spacing seems off"
+**✅ Good**: "Card padding: 24px (currently 16px) - inconsistent with sidebar cards which use 24px"
 
-## Analytics & Tracking
-- [ ] ✅/⚠️/N/A Vercel/Google analytics enabled
-  - Status notes...
-- [ ] ✅/⚠️/N/A Feature flags configured
-  - Status notes...
-[Continue for all items...]
+### Design System Consistency
 
-## Issues Found
-1. **[Category] - [Item]**
-   - Issue: Description of what's wrong
-   - Impact: Why this matters
-   - Recommendation: How to fix
+Claude validates consistency across all screens:
+- **Typography scale**: Ensures font sizes follow defined scale (e.g., 12px, 14px, 16px, 18px, 24px, 32px)
+- **Color palette**: Verifies colors match design system tokens
+- **Spacing system**: Checks margins/padding use consistent scale (e.g., 4px, 8px, 16px, 24px, 32px)
+- **Component patterns**: Identifies deviations from established patterns
 
-## Ready for Deployment?
-**[YES/NO/WITH CAVEATS]**
-- Reasoning: [Brief explanation]
+### Implementation Workflow
+```bash
+# 1. Run tests with screenshot capture
+npm run test:e2e -- --screenshot
+
+# 2. Screenshots exported to screenshots_for_review.json
+
+# 3. Submit to Claude for review
+# Upload screenshots_for_review.json to Claude
+
+# 4. Claude generates review file
+# design_review_feedback.md with prioritized issues
+
+# 5. Address critical issues first
+# Fix 🔴 Critical issues before deployment
+# Schedule ⚠️ High Priority fixes for next sprint
 ```
 
-# BEST PRACTICES
+### Review Checklist
 
-1. **Don't Rush**: Verify each item methodically, don't skip "obvious" ones
-2. **Document Everything**: Note even minor issues for future reference
-3. **Test Edge Cases**: Try to break things - empty data, slow network, errors
-4. **Use DevTools**: Browser DevTools are essential for verification
-5. **Think Like a User**: Would you be confident using this in production?
-6. **Security First**: Never compromise on sensitive data exposure
-7. **Accessibility Matters**: Keyboard navigation and zoom are requirements, not nice-to-haves
+| Item | Status | Verification Notes |
+|------|--------|-------------------|
+| Screenshots captured for all key screens | ☐ | Login, dashboard, forms, modals, empty states, error states |
+| JSON export generated successfully | ☐ | `screenshots_for_review.json` created and readable |
+| Claude review completed | ☐ | Feedback file received with prioritized issues |
+| Critical issues identified | ☐ | All 🔴 Critical items documented |
+| High priority issues documented | ☐ | All ⚠️ High Priority items listed |
+| Fixes applied and verified | ☐ | Screenshots re-captured to confirm fixes |
+| Design system consistency validated | ☐ | Colors, fonts, spacing match design tokens |
+| Accessibility requirements met | ☐ | Contrast ratios, touch targets, readability verified |
 
-# INVOCATION
+---
 
-Users can invoke this skill by:
-- Asking "check deployment readiness"
-- Requesting "pre-deployment verification"
-- Using a deployment checklist command
-- Before merging production PRs
+## Notes
+
+Use this checklist during code review and QA phases. Check off items as they're verified, and add specific notes for any issues found or special considerations.
+
+**For Claude Design Review**: Submit your `screenshots_for_review.json` to Claude with the prompt: "Please perform a pixel-perfect design review focusing on critical and high-priority issues only. Provide specific, actionable fixes."
+
+
+### 🎯 100% UI Coverage Validation
+- **Source code analysis** - Parse HTML, JSX, TSX, Vue, and JS files to find ALL UI element types
+- **11+ Element Types Detected** - Buttons, links, inputs, textareas, checkboxes, radio buttons, select dropdowns, tabs, accordions, toggles, modal triggers, menu items
+- **Compare code vs tests** - Identify untested elements of ANY type
+- **Before/after screenshots** - Capture UI state before AND after each interaction (click, fill, select, check, uncheck)
+- **Comprehensive interaction testing** - Clicks, checks, unchecks, selects, fills - all tested automatically
+- **Coverage reports** - Detailed JSON and HTML reports showing tested vs untested elements by type
+- **Full coverage mode** - Automatically test EVERY interactive element found in source code
+- **Gap detection** - Highlight UI elements implemented in code but not tested
+- **Coverage percentage** - Calculate exact % of UI elements covered by tests
+- **Detailed untested list** - Shows element type, file path, line number, selector, and text for each untested element
+- **Framework support** - Works with React, Vue, Angular, and vanilla JS/HTML
+- **Smart selector detection** - Uses id, data-testid, name, class, and element type for reliable testing
+
+### Visual Regression Testing
+- Compare screenshots against baseline images
+- Automatically detect visual differences
+- Generate diff images with red highlights
+- Track similarity percentages
+
+### Parallel Test Execution
+- Run multiple tests concurrently
+- Configurable worker count (1-10+)
+- Faster test completion for large test suites
+
+### Interactive Actions
+- **Click** - Buttons, links, tabs, accordions, toggles, modal triggers, menu items
+- **Check/Uncheck** - Checkboxes with state management
+- **Select** - Radio buttons with automatic selection
+- **Fill** - Text inputs, email, password, search, tel, URL fields, textareas
+- **Select options** - Dropdown menus with multiple option testing
+- **Hover** - Mouse hover over elements
+- **Press keys** - Keyboard interactions
+- **Scroll** - Page scrolling and element scrolling
+- **Wait** - Smart waits for conditions and animations
+- **Execute complex workflows** - Multi-step user journeys
+
+### Configuration Files
+- Load test configuration from JSON or YAML
+- Define routes, actions, and settings in files
+- Easy test suite management
+
+### Device Emulation
+- iPhone (13, 13 Pro, 13 Pro Max)
+- iPad (Air, Pro)
+- Android (Pixel 5, Galaxy S21)
+- Desktop presets (1080p, 1440p)
+
+### Screenshot Formats
+- PNG (default, lossless)
+
+## Instructions
+
+When you ask me to test your web app, I will:
+
+### Automated Testing & Quality Assurance Workflow
+
+1. **Setup & Analysis**
+   - Create test script with your configuration
+   - Analyze source code to find ALL UI elements (11+ types)
+   - Compare code implementation vs existing tests to identify gaps
+
+2. **Comprehensive Testing**
+   - Auto-discover all pages and routes
+   - Interact with EVERY element to reveal hidden UI states
+   - Capture before/after screenshots with operation behavior
+   - Test buttons, forms, modals, dropdowns, tabs, accordions, toggles, etc.
+   - Document every interaction performed
+
+3. **Quality Checklist Validation**
+   - Run comprehensive checklist covering:
+     - Deployment (analytics, env vars, no sensitive data)
+     - Code Quality (linting, tests, naming, error handling)
+     - UX (loading states, error messages)
+     - SEO (title, meta, Open Graph, favicon)
+     - Function & Layout (all interactions, validation, keyboard/touch, spacing, typography, dark mode, branding, tooltips, alignment, scroll bars)
+
+4. **Picky Designer Review** (Automatic)
+   - Read `screenshots_for_review.json`
+   - Load and analyze screenshots as a picky UI/UX designer
+   - **Focus on critical issues only** - Skip minor/cosmetic problems
+   - **Simple, concise feedback** - Brief bullet points with actionable fixes
+   - Identify: accessibility violations, broken layouts, UX failures, critical design problems
+   - Save concise review to `design_review.md`
+
+5. **Generate Reports**
+   - HTML test report with visual results and checklist results
+   - UI coverage report (JSON) showing tested vs untested elements
+   - Design review document with critical issues and actionable fixes (concise format)
+
+**Everything happens automatically - you just provide the URL!**
+
+### Basic Usage
+
+1. Tell me your web app URL (e.g., http://localhost:3000)
+2. Specify source directory for code analysis, ask if you don't have 
+3. I'll run comprehensive tests, quality checklist, and design review
+4. Check the generated reports under test_result dirtory: HTML report + UI coverage + design review
+
+### Advanced Usage
+
+**Complete Test Suite with Screenshot Capture:**
+```bash
+python test_runner.py --url http://localhost:3000 --auto-discover --source-dir ./src --ui-coverage --before-after --parallel 4
+```
+
+**100% UI Coverage Validation (Analyze Source Code):**
+```bash
+python test_runner.py --url http://localhost:3000 --source-dir ./src --ui-coverage --before-after
+```
+
+**Auto-Discovery + UI Coverage:**
+```bash
+python test_runner.py --url http://localhost:3000 --auto-discover --source-dir ./src --ui-coverage --before-after
+```
+
+**Auto-Discovery Mode (Crawl Entire App):**
+```bash
+python test_runner.py --url http://localhost:3000 --auto-discover --max-depth 3 --max-pages 100
+```
+
+**Auto-Discovery with Visual Regression:**
+```bash
+python test_runner.py --url http://localhost:3000 --auto-discover --baseline ./baselines --parallel 4
+```
+
+**Ultimate Test Suite (ALL Features):**
+```bash
+python test_runner.py --url http://localhost:3000 --source-dir ./src --auto-discover --ui-coverage --before-after --baseline ./baselines --video --network-logs --parallel 4
+```
+
+**Visual Regression Testing:**
+```bash
+python test_runner.py --url http://localhost:3000 --baseline ./baselines
+```
+
+**Parallel Execution:**
+```bash
+python test_runner.py --config test_config.yaml --parallel 4
+```
+
+**Device Testing:**
+```bash
+python test_runner.py --url http://localhost:3000 --device iphone_13
+```
+
+**Network Logging:**
+```bash
+python test_runner.py --url http://localhost:3000 --network-logs --video
+```
+
+**Configuration File:**
+```yaml
+base_url: "http://localhost:3000"
+output_dir: "test_results"
+baseline_dir: "baselines"
+screenshot_format: "png"
+enable_video: true
+enable_network_logs: true
+enable_coverage: true
+device: "iphone_13"
+max_parallel: 3
+
+# Auto-discovery settings
+auto_discover: true
+max_depth: 3
+max_pages: 100
+
+# UI Coverage settings
+source_dir: "./src"
+enable_ui_coverage: true
+before_after_screenshots: true
+
+routes:
+  - route: "/"
+    name: "home"
+    description: "Homepage"
+
+  - route: "/login"
+    name: "login"
+    description: "Login page"
+    actions:
+      - type: "fill"
+        selector: "#username"
+        value: "testuser"
+      - type: "fill"
+        selector: "#password"
+        value: "testpass"
+      - type: "click"
+        selector: "#login-button"
+      - type: "wait"
+        ms: 2000
+```
+
+## CLI Arguments
+
+```
+--config, -c        Config file (JSON or YAML)
+--url              Base URL to test
+--output, -o       Output directory (default: test_results)
+--baseline, -b     Baseline directory for visual regression
+--format, -f       Screenshot format: png, jpeg, webp
+--video            Enable video recording
+--network-logs     Enable network logging
+--coverage         Enable code coverage tracking
+--device, -d       Device preset (use --list-devices to see all)
+--network, -n      Network preset (use --list-networks to see all)
+--parallel, -p     Max parallel tests (default: 1)
+--auto-discover    Automatically discover all pages and interactive elements
+--max-depth        Max crawl depth for auto-discovery (default: 3)
+--max-pages        Max pages to discover (default: 100)
+--source-dir          Source code directory for UI coverage analysis
+--ui-coverage         Enable UI coverage validation - compare code vs tests
+--before-after        Take before/after screenshots for each interaction
+--list-devices        List available device presets
+--list-networks    List available network presets
+```
+
+## What I'll Generate
+
+### Test Artifacts
+- Full-page screenshots of all pages and interactive states
+- **Before/after screenshots** with operation behavior documentation
+- **Screenshots JSON file** (`screenshots_for_review.json`)
+- Visual diff images (when baseline exists)
+- Video recordings (when enabled)
+- Network logs with request/response tracking
+
+### Reports & Analysis
+- **HTML Test Report** - Visual results, network data, UI coverage section
+- **UI Coverage Report (JSON)** - Tested vs untested elements by type with file locations
+- **Design Review (design_review.md)** - Critical UI/UX issues only, concise and actionable
+- **Quality Checklist Report** - Comprehensive checklist results covering:
+  - ✅ **Deployment** - Analytics, feature flags, environment variables, no sensitive data exposed
+  - ✅ **Code Quality** - Linting, unit tests, no hardcoded secrets, meaningful naming, reusable components, error handling
+  - ✅ **UX** - Loading states, error messages, graceful error handling
+  - ✅ **SEO** - Title tags, meta descriptions, Open Graph tags, favicon, canonical links
+  - ✅ **Function & Layout** - All interactions work, form validation, keyboard/touch support, no overflow, consistent spacing/typography/colors, dark mode, branding, data accuracy, sticky elements, zoom behavior, tooltips, component states, alignment, scroll bars
+
+### Coverage & Insights
+- **100% UI Coverage Validation** - Compare source code against actual tests
+- **Detailed untested elements table** - Element type, file paths, line numbers, selectors
+- **Summary statistics** - Success/failure rates, coverage percentages by element type
+- **Complete interaction test results** - ALL element types tested (buttons, checkboxes, radios, dropdowns, tabs, accordions, toggles, inputs, modals, menu items, etc.)
+
+## Comprehensive Quality Assurance Process
+
+### 1. 100% UI Coverage (No Screens Missed)
+- **Source code analysis** - Parse all HTML/JSX/TSX/Vue files to find UI elements
+- **Compare code vs tests** - Identify gaps between implementation and testing
+- **Interactive element discovery** - Auto-discover 11+ element types on every page
+- **Interact to reveal UI** - Click buttons, open modals, expand accordions, toggle switches to reveal hidden UI states
+- **Comprehensive coverage** - Ensure every UI screen is captured and tested
+
+### 2. Screenshot Report with Operation Behavior
+- **Before/after screenshots** for every interaction (click, check, uncheck, fill, select, toggle, expand)
+- **Operation documentation** - Each screenshot annotated with action performed
+- **Full-page captures** - Complete page state before and after each interaction
+- **All interactive states** - Modals, dropdowns, tabs, accordions, tooltips, hover states
+
+### 3. Picky Designer Review (Automatic)
+After tests complete, I automatically review screenshots as a picky UI/UX designer:
+- **CRITICAL ISSUES ONLY** - Focus on blocking problems that need immediate fixes
+- **Concise format** - Brief bullet points, no verbose explanations
+- 🔴 **Critical**: Accessibility violations, broken layouts, major UX failures
+- ⚠️ **High Priority**: Important issues that significantly impact users
+- **Skip minor issues** - No cosmetic nitpicks or nice-to-haves
+- **Design feedback saved to `design_review.md`** with actionable fixes only
+
+### 4. Comprehensive Quality Checklist
+I automatically run and report on the following checklist:
+
+#### Deployment Checklist
+- ✅ Vercel/Google Analytics enabled on code & platform
+- ✅ Feature flags toggled correctly (if used)
+- ✅ Environment variables configured for staging/prod
+- ✅ No sensitive info/spam/test/error logs exposed in front-end
+
+#### Code Quality Checklist
+- ✅ Code Quality check (Prettier & ESLint)
+- ✅ Unit tests for critical logic
+- ✅ No hardcoded constants (API keys, third-party endpoints)
+- ✅ Meaningful naming for files, components, variables
+- ✅ Components small and reusable where possible
+- ✅ Network errors/Abort requests handled gracefully
+
+#### UX Checklist
+- ✅ API calls have loading UI
+- ✅ API errors have user-friendly messages
+- ✅ All interactions provide appropriate feedback
+
+#### SEO Checklist
+- ✅ `<title>` tag set
+- ✅ Meta description
+- ✅ Open Graph tags (title, description, image)
+- ✅ Favicon included
+- ✅ Correct canonical link (if needed)
+
+#### Function & Layout Checklist
+- ✅ All buttons, links, forms, modals, popovers, dropdowns behave correctly
+- ✅ Form validation triggered correctly
+- ✅ Basic keyboard & touch area interactions work
+- ✅ No unintended overflow horizontally or vertically
+- ✅ Consistent and proper spacing, element size, element radius, typography, colors
+- ✅ Dark mode supported (if applicable)
+- ✅ Branding included
+- ✅ Data/Calculation correct
+- ✅ Sticky headers/footers behave properly
+- ✅ Zoom behavior correct
+- ✅ Tooltips content display proper location and concise/formal content
+- ✅ Interactive components have right default state and corner cases work fine
+- ✅ Concise title/description
+- ✅ Title and content matched
+- ✅ Element vertical/horizontal alignment correct
+- ✅ Hide browser default scroll bar
+
+## Requirements
+
+Packages must be installed in your environment:
+```bash
+pip install playwright Pillow PyYAML
+playwright install chromium
+```
+
+No API keys required! Claude (in your current session) reviews screenshots after test completion.
+
+I'll help you install these if needed.
+
+## Examples
+
+See [EXAMPLES.md](EXAMPLES.md) for common usage patterns including:
+- Visual regression testing workflows
+- Interactive form testing
+- Mobile device testing
+- Parallel test execution
+- Network throttling scenarios
+
+For detailed configuration options and advanced features, see [GUIDE.md](GUIDE.md).
