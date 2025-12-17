@@ -10,7 +10,9 @@ Advanced automated web application testing with Playwright. Automatically discov
 
 ## 🎯 Interactive Element Types
 
-This skill now discovers and tests ALL these interactive element types:
+**Reference**: See [../../element-types.md](../../element-types.md) for complete element type definitions, selectors, and test actions.
+
+This skill discovers and tests ALL these interactive element types:
 
 1. **Buttons** - `<button>`, `[role="button"]`, `[onclick]`, input buttons, submit buttons, class-based buttons
 2. **Links** - `<a href>` elements (excluding anchors and javascript:)

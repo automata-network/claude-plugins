@@ -8,17 +8,15 @@ You must execute the following operations strictly in order. Do not skip any ste
 
 ### Phase A: Connectivity & Basics
 1.  **Navigation**: Use `playwright MCP server` to access the Target URL.
-2.  **Console Inspection**: Check the browser console for any logs with an "Error" level.
+2.  **Element Discovery**: Discover interactive elements using standard selectors (see [element-types.md](../element-types.md) for complete definitions of 11+ element types including buttons, links, checkboxes, radios, dropdowns, text inputs, tabs, accordions, toggles, modals, and menus).
+3.  **Console Inspection**: Check the browser console for any logs with an "Error" level.
     * *Criteria*: If any console errors are found, the test status must be marked as "WARNING" (unless the page fails to load entirely, then "FAIL").
 
 ### Phase B: Standard Testing
 
-**Reference**: See [checklist.md](../checklist.md) for comprehensive quality criteria covering:
-- UX & Error Handling
-- SEO
-- Function & Layout
-- Accessibility Considerations
-- Performance
+**References:** 
+- [checklist.md](../checklist.md) - Comprehensive quality criteria for UX, SEO, Function & Layout, Accessibility, Performance
+- [element-types.md](../element-types.md) - Complete interactive element type definitions and selectors
 
 Focus on the following automated checks using Playwright:
 
