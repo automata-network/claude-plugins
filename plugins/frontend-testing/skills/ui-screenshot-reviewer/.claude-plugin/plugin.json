@@ -1,0 +1,13 @@
+{
+  "name": "ui-screenshot-reviewer",
+  "version": "1.0.0",
+  "description": "Picky UI/UX designer that reviews screenshots for typography, colors, spacing, layout, and accessibility. Provides critical, actionable design feedback.",
+  "author": {
+    "name": "Automata Team",
+    "email": "support@automata.com"
+  },
+  "metadata": {
+    "category": "design",
+    "tags": ["ui", "ux", "design-review", "screenshots", "accessibility", "wcag"]
+  }
+}
