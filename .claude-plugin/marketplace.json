@@ -55,6 +55,18 @@
       },
       "keywords": ["testing", "frontend", "playwright", "ui-testing", "e2e-testing"],
       "category": "testing"
+    },
+    {
+      "name": "xata-agentic-trading",
+      "source": "./plugins/xata-agentic-trading",
+      "description": "Trade on decentralized exchanges via XATA API with AI-powered natural language trading",
+      "version": "0.1.0",
+      "author": {
+        "name": "Automata Network",
+        "email": "devops@ata.network"
+      },
+      "keywords": ["trading", "defi", "xata", "hyperliquid", "aster", "lighter"],
+      "category": "trading"
     }
   ]
 }
