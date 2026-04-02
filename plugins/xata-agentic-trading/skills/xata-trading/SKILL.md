@@ -10,11 +10,38 @@ allowed-tools: Bash, Read, Write, WebFetch, AskUserQuestion
 
 This skill enables AI-powered trading on decentralized exchanges through the XATA API. It handles wallet setup, venue binding, and trade execution across supported platforms.
 
-Supported platforms (v0.1.0): Hyperliquid, Lighter, Aster.
+Supported platforms (v0.1.0): Hyperliquid, Lighter, Aster, and HIP-3 perp dexes (on Hyperliquid).
 
 Full API reference: https://docs.ata.network/xata/api
 
 This skill handles single interactive requests only. Do not implement automated, scheduled, or looping trading strategies. Each invocation processes one user request and completes.
+
+---
+
+## Venue Discovery
+
+When the user asks what venues or exchanges they can trade on, list:
+- **Hyperliquid** — the main Hyperliquid L1 perp DEX
+- **Lighter** — Lighter DEX
+- **Aster** — Aster DEX
+- **HIP-3 perp dexes** — third-party perpetual DEXes deployed on Hyperliquid via the HIP-3 standard
+
+If the user asks what HIP-3 dexes are available or supported, fetch the list from the XATA API. Run via Bash:
+
+```bash
+curl -s "<API_BASE>/v2/hyperliquid/getHip3Dexes" \
+  -H "x-api-key: <API_KEY>"
+```
+
+The response contains a `dexes` array listing the short names of supported HIP-3 dexes. Present the list to the user.
+
+### Trading on HIP-3 Dexes
+
+HIP-3 dexes settle on Hyperliquid. The user must have Hyperliquid bound as a venue before trading on any HIP-3 dex. If Hyperliquid is not yet bound, guide them through the Hyperliquid venue binding flow first. **HIP-3 dexes do not require their own separate venue binding** — once Hyperliquid is bound, all HIP-3 dexes are accessible. Do not offer to "bind" a HIP-3 dex.
+
+HIP-3 dexes support the same API methods as Hyperliquid (except `getHip3Dexes`, which is Hyperliquid-only). When constructing requests for a HIP-3 dex, follow the same Trading Flow as Hyperliquid — including fetching endpoint documentation from `https://docs.ata.network/xata/api` — with two differences:
+1. **API path**: Use `<API_BASE>/v2/hip3/<dexname>/<endpoint>` instead of `<API_BASE>/v2/hyperliquid/<endpoint>`. For example, to trade on XYZ use `<API_BASE>/v2/hip3/xyz/<endpoint>`, for dreamcash use `<API_BASE>/v2/hip3/cash/<endpoint>`, etc.
+2. **Symbol names**: Use the coin name without any prefix (e.g., `GOLD`, `TSLA`, `MAG7`) — not the prefixed form.
 
 ---
 
@@ -225,7 +252,7 @@ The Hyperliquid binding API is being redesigned. Before constructing the request
 ## Trading Flow
 
 1. **Parse user intent.** Determine the following from the user's message:
-   - Platform (hyperliquid, lighter, aster)
+   - Platform (hyperliquid, lighter, aster, or a HIP-3 dex name such as xyz, flx, vntl, hyna, km, cash, etc.)
    - Operation: order, cancel, query orders, balance, position, market data, leverage, or strategy
    - Symbol / trading pair
    - Side (buy / sell) if applicable
@@ -237,7 +264,7 @@ The Hyperliquid binding API is being redesigned. Before constructing the request
 
 3. **Validate trading pair.** Run via Bash:
    ```bash
-   curl -s "https://api.x.ata.network/v2/<platform>/symbol-info" \
+   curl -s "https://api.x.ata.network/v2/<platform>/getSymbolInfo" \
      -H "x-api-key: <API_KEY>"
    ```
    Check that the requested symbol exists in the response. If not, show the user the list of available pairs and ask them to pick one.
@@ -278,7 +305,7 @@ Available operations:
 - Adjust leverage
 - Strategy engine (cross-exchange arbitrage: submit/query/cancel)
 
-Supported platforms (v0.1.0): Hyperliquid, Lighter, Aster
+Supported platforms (v0.1.0): Hyperliquid, Lighter, Aster, HIP-3 perp dexes
 API base URL: https://api.x.ata.network
 Full API reference: https://docs.ata.network/xata/api
 ```

@@ -1,10 +1,10 @@
 {
   "name": "xata-agentic-trading",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Trade on decentralized exchanges via XATA API with AI-powered natural language trading",
   "author": {
     "name": "Automata Network",
     "email": "devops@ata.network"
   },
-  "keywords": ["trading", "defi", "xata", "hyperliquid", "aster", "lighter"]
+  "keywords": ["trading", "defi", "xata", "hyperliquid", "aster", "lighter", "hip-3"]
 }
