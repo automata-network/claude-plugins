@@ -23,14 +23,12 @@
     },
     {
       "name": "codex",
-      "source": "./plugins/codex",
-      "description": "⚠️ [EXPERIMENTAL] Integration with OpenAI Codex CLI for complex code generation and debugging - early development",
-      "version": "0.0.2-alpha",
+      "source": {"source": "github", "repo": "openai/codex-plugin-cc", "ref": "v1.0.2", "sha": "6360899e1c7fca31fffaf41692ef9287fc9e2b1c"},
+      "description": "Integration with OpenAI Codex CLI for complex code generation and debugging",
       "author": {
-        "name": "Automata Network",
-        "email": "devops@ata.network"
+        "name": "OpenAI"
       },
-      "keywords": ["codex", "ai", "code-generation", "debugging", "experimental"],
+      "keywords": ["codex", "ai", "code-generation", "debugging"],
       "category": "ai-tools"
     },
     {
