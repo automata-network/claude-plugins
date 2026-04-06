@@ -23,7 +23,7 @@
     },
     {
       "name": "codex",
-      "source": {"source": "github", "repo": "openai/codex-plugin-cc"},
+      "source": {"source": "github", "repo": "openai/codex-plugin-cc", "ref": "v1.0.2", "sha": "6360899e1c7fca31fffaf41692ef9287fc9e2b1c"},
       "description": "Integration with OpenAI Codex CLI for complex code generation and debugging",
       "author": {
         "name": "OpenAI"
